@@ -7,14 +7,6 @@ body {
   font-family: 'segoe ui';
 }
 
-.pubs{
-  text-align: center;
-  padding: auto;
-}
-ol.pubs-list {
-  display: inline-block;
-  text-align: left;
-}
 
 .nav {
   height: 60px;
@@ -103,4 +95,37 @@ ol.pubs-list {
     height: calc(100vh - 50px);
     overflow-y: auto;
   }
+}
+.pubs{
+  text-align: center;
+}
+.pubs-list {
+  max-width: 1000px;
+  display: inline-block;
+  text-align: justify;
+  padding: 0% 10% 0% 10%;
+}
+
+a:link {
+  color: red;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: red;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: green;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
 }
