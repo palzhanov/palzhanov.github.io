@@ -12,49 +12,60 @@
 	colorlinks=true,
 	linkcolor=blue,
 	filecolor=magenta,      
-	urlcolor=[rgb]{1.0, 0.1, 0.4},
+	urlcolor=[RGB]{12, 20, 120},
 }
 \urlstyle{same}
+\definecolor{codepurple}{RGB}{0, 67, 133} 
 \usepackage{graphicx}
 \usepackage[left=1.50cm, right=1.00cm, top=1.00cm, bottom=1.00cm]{geometry}
 \newcommand{\gbullet}{\textcolor{gray}{\textbullet} }
+\newcommand{\gsect}[1]{\textcolor{codepurple}{\textbf{{\Large \uppercase{#1} }}} \\ \hrule}
+\newcommand{\gsubsect}[1]{\textcolor{black}{\textbf{{\large #1 }}} }
 \pagestyle{empty}
 \begin{document}
 	\begin{center}
-\textbf{	Yerbol Palzhanov}\\ Computational Scientist, PhD\\
+\textbf{	{\large Yerbol Palzhanov}}\\ Research Scientist, PhD\\
 +1 713 820 1919 \quad palzhanov@gmail.com
 	\end{center}
-\textbf{Education}\\
+
+
+\gsect{Experience}
+
+
 $\begin{array}{r l }
-\text{2019 - 2023} & \text{Ph.D in Computational Science, University of Houston, Houston, TX} \\
-\text{2015 - 2017} & \text{M.S. in Mathematics, Atyrau State University, Atyrau, Kazakhstan}\\
- \text{2008 - 2012} & \text{B.S. in Mathematics, Auezov University, Shymkent, Kazakhstan}
+\text{2019 - 2023} & \text{Graduate Researcher @ University Of Houston} \\
+\text{2018 - 2019} & \text{Academic Vice-Principal @ Silkway Lyceum} \\
+\text{2016 - 2017} & \text{Academic Vice-Principal @ Atyrau Bilim-Innovation High Schools} \\
+\text{2011 - 2018} & \text{Mathematics Teacher @ Bilim-Innovation High Schools}  
 \end{array}$
-
-
-\textbf{Experience}\\
-$\begin{array}{r l }
-\text{2019 - 2023} & \text{Graduate Research Assistant @ University Of Houston} \\
-\text{2011 - 2019} & \text{Vice-Principal, Mathematics Teacher @ Bilim-Innovation High Schools} 
-\end{array}$
+%\begin{itemize}
+%	\item Trained IMO(International mathematics olympiads) gold \href{https://www.imo-official.org/participant_r.aspx?id=30786}{medalist}.
+%	\item Served as an academic vice-principal in \href{https://bil.edu.kz/en/}{Atyrau BIL}, TOP-5 olympiad schools in Kazakhstan. 
+%	\item  Developed curriculum for building value-based school culture. 
+%\end{itemize}
 
 
 
-\textbf{Projects - Fluid Dynamics \& Finite Element Methods}\\
-\textit{Navier-Stokes-Cahn-Hilliard equation on surfaces}
+\gsect{Projects}
+
+\gsubsect{Two-phase flows on manifolds}
 \begin{itemize}
-	\item {Developing Trace FEM discretization for Navier–Stokes–Cahn–Hilliard model
-		for two-phase surface flows}
-	\item {Experimenting the coarsening and fluidity in multicomponent lipid vesicles using NSCH model}
-	\item {Used DROPS - CFD tool for simulating two-phase flows (C++) to model flows}
-	\item {Used package Trilinos(BELOS, AMESOS2, EPETRA) to solve systems of linear equations with Flexible GMRES}
-	\item {Extended knowledge of MATLAB and Paraview, VTK to process the data and visualize }
-	\item {FEA packages: DEALii, OpenFoam, NGSolve, FEniCS}
+	\item {Developed and analysed Navier–Stokes–Cahn–Hilliard model for two-phase surface flows}
+	\item {Contributed to finite element C++ package DROPS - CFD tool for simulating two-phase flows  to model flows}
+	\item {Integrated the collection of scientific software libraries Trilinos(BELOS, AMESOS2, EPETRA) to solve systems of linear equations with Flexible GMRES}
 \end{itemize}
-\textit{Scalar Auxiliary Variables}\\
-\hspace*{10mm} Implementing new unconditionally energy stable numerical method with Scalar Auxiliary Variable 
-for gradient flows 
-\hspace*{10mm} on sphere.
+\gsubsect{Multicomponent lipid membranes}
+\begin{itemize}
+	\item {Built computational model of lipid domain coarsening and fluidity }
+	\item {Studied fusogenicity of positively charged phased-separated lipid vesicle }
+	
+\end{itemize}
+
+\gsubsect{Reduced order modeling with neural networks}
+\begin{itemize}
+\item {Built and trained convolutional autoencoders for advection dominated systems }
+
+\end{itemize}
 
 
 %\textit{Membrane shape solver}\\
@@ -62,63 +73,78 @@ for gradient flows
 % equilibrium equation 
 % \hspace*{10mm} to find the shape deformation of surface under given conditions.
 
-\textbf{Machine Learning and Data Science Skills}\\
-\textit{Robust Principal Component Analysis for Modal Decomposition of Corrupt Fluid Flows}\\
-\hspace*{10mm} Implementing robust PCA in Python, comparing to dynamic mode decomposition(DMD), using RPCA on PIV data
-\hspace*{10mm} from experiments, SVD, POD\\
-\textit{Tensorflow}\\
-\hspace*{10mm}  Working experience with Keras, Convolutional Neural Networks, DNN, RNN, Time-Series Analysis, NLP,\\ 
-\hspace*{10mm} Implementing ML models and deployment, TensorflowJS, Tensorflow LITE
+%\textbf{Machine Learning and Data Science Skills}\\
+%\textit{Robust Principal Component Analysis for Modal Decomposition of Corrupt Fluid Flows}\\
+%\hspace*{10mm} Implementing robust PCA in Python, comparing to dynamic mode decomposition(DMD), using RPCA on PIV data
+%\hspace*{10mm} from experiments, SVD, POD\\
+%\textit{Tensorflow}\\
+%\hspace*{10mm}  Working experience with Keras, Convolutional Neural Networks, DNN, RNN, Time-Series Analysis, NLP,\\ 
+%\hspace*{10mm} Implementing ML models and deployment, TensorflowJS, Tensorflow LITE
 
-\textbf{Courses}\\
-\textit{Pattern recognition, Machine Learning, Dynamical Systems and Control}\\
-\hspace*{10mm}  SVD \gbullet Fourier and Wavelet Tranforms \gbullet Sparsity \gbullet SINDy \gbullet Reduced order models (ROM) \gbullet DMD \\
-\textit{DeepLearning.AI TensorFlow Developer}\\ \href{https://coursera.org/share/f65948fc03c3da5785b670010c27bbe4}{Course certificate}\\
+
+
+
+\gsect{Skills}
+\textsl{Finite element methods \& CFD}\\
 \hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+\textsl{Numerical analysis}\\
+\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+\textsl{HPC}\\
+\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+\textsl{Machine Learning}\\
+\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+%$\begin{array}{r l }
+	%\text{Numerical analysis:} & \text{Finite element methods \gbullet Numerical optimization \gbullet Preconditioning } \\
+	%\text{Machine Learning:} & \text{Tensorflow \gbullet Keras \gbullet Scikit-learn \gbullet Pandas \gbullet Numpy} \\
+	%\text{Programming Languages:} & \text{C/C++ \gbullet Python \gbullet MATLAB \gbullet Wolfram Mathematica \gbullet R} \\
+	%\text{Packages \& Softwares:} & \text{DROPS \gbullet DEALii \gbullet Paraview \gbullet VTK \gbullet Trilinos \gbullet Git} \\
+%\end{array}$
 
+\gsect{Education}
 
-\textbf{Leadership and Mentoring Experience}
-\begin{itemize}
-	\item Trained IMO(International mathematics olympiads) gold \href{https://www.imo-official.org/participant_r.aspx?id=30786}{medalist}.
-	\item Served as an academic vice-principal in \href{https://bil.edu.kz/en/}{Atyrau BIL}, TOP-5 olympiad schools in Kazakhstan. 
-	\item  Developed curriculum for building value-based school culture. 
-\end{itemize}
-
-\textbf{Skills}\\
 $\begin{array}{r l }
-	\text{Numerical analysis:} & \text{Finite element methods \gbullet Numerical optimization \gbullet Preconditioners, } \\
-	\text{Machine Learning:} & \text{Tensorflow \gbullet Keras \gbullet Scikit-learn \gbullet Pandas \gbullet Numpy} \\
-	\text{Programming Languages:} & \text{C/C++ \gbullet Python \gbullet MATLAB \gbullet Wolfram Mathematica \gbullet R} \\
-	\text{Packages \& Softwares:} & \text{DROPS \gbullet DEALii \gbullet Paraview \gbullet VTK \gbullet Trilinos \gbullet Git} \\
-	\text{Languages:} & \text{Kazakh \gbullet English \gbullet Russian \gbullet Turkish} \\
-	\text{Other:} & \text{3D modeling \gbullet Blender \gbullet Unity \gbullet Agent‑Based Simulation \gbullet Crowd‑behaviour}
+\text{2019 - 2023} & \text{Ph.D in Computational Science, University of Houston, Houston, TX} \\
+\text{2015 - 2017} & \text{M.S. in Mathematics, Atyrau State University, Atyrau, Kazakhstan}\\
+ \text{2008 - 2012} & \text{B.S. in Mathematics, Auezov University, Shymkent, Kazakhstan}
 \end{array}$
+
+\gsect{Certificates}
+\textsl{TensorFlow Developer} \href{https://coursera.org/share/f65948fc03c3da5785b670010c27bbe4}{\textsf{certificate}}\\
+\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
 
 
 
 \newpage
-\textbf{Publications}
+\gsect{Publications}
 \begin{etaremune}
-	\item \textit{\href{https://arxiv.org/abs/2306.00318}{A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation}},\\ M. Olshanskii, Y. Palzhanov, A. Quaini,\\
-	Preprint, Jun 2023
-	\item \textit{\href{https://arxiv.org/abs/2308.08425}{On fusogenicity of positively charged phased-separated lipid vesicles: experiments and computational simulations}},\\ Y. Wang, Y. Palzhanov, D Dang, A. Quaini, M. Olshanskii, S. Majd, \\
-	Preprint, Aug 2023
-	\item \textit{\href{https://doi.org/10.1016/j.bbamem.2022.183898}{Lipid domain coarsening and fluidity in multicomponent lipidvesicles: A continuum based model and its experimental validation}},\\ Y.~Wang, Y.~Palzhanov, A.~Quaini, M.~Olshanskii, S.~Majd\\
+	\item \textsl{\href{https://doi.org/10.1007/s10915-023-02370-8}{A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation}},\\ M. Olshanskii, Y. Palzhanov, A. Quaini,\\
+	Journal of Scientific Computing, Oct 2023
+	\item \textsl{\href{https://doi.org/10.3390/biom13101473}{On fusogenicity of positively charged phased-separated lipid vesicles: experiments and computational simulations}},\\ Y. Wang, Y. Palzhanov, D Dang, A. Quaini, M. Olshanskii, S. Majd, \\
+	Biomolecules, Sep 2023
+	\item \textsl{\href{https://doi.org/10.1016/j.bbamem.2022.183898}{Lipid domain coarsening and fluidity in multicomponent lipidvesicles: A continuum based model and its experimental validation}},\\ Y.~Wang, Y.~Palzhanov, A.~Quaini, M.~Olshanskii, S.~Majd\\
 	Biochimica et Biophysica Acta(BBA) - Biomembranes, 2022	
-	\item \textit{\href{https://link.springer.com/article/10.1007/s10013-022-00564-5}{A comparison of Cahn-Hilliard and Navier-Stokes-Cahn-Hilliard models on manifolds}},\\ M.~Olshanskii, Y.~Palzhanov, A.~Quaini \\
+	\item \textsl{\href{https://link.springer.com/article/10.1007/s10013-022-00564-5}{A comparison of Cahn-Hilliard and Navier-Stokes-Cahn-Hilliard models on manifolds}},\\ M.~Olshanskii, Y.~Palzhanov, A.~Quaini \\
 	Vietnam Journal of Mathematics, 2022	
-	\item \textit{\href{https://www.sciencedirect.com/science/article/abs/pii/S0045782521004989}{A decoupled, stable, and linear FEM for a phase-field model of variable density two-phase incompressible surface flow}},\\ Y.~Palzhanov, A.~Zhiliakov, A.~Quaini, M.~Olshanskii\\
+	\item \textsl{\href{https://www.sciencedirect.com/science/article/abs/pii/S0045782521004989}{A decoupled, stable, and linear FEM for a phase-field model of variable density two-phase incompressible surface flow}},\\ Y.~Palzhanov, A.~Zhiliakov, A.~Quaini, M.~Olshanskii\\
 	Computer Methods in Applied Mechanics and Engineering, 2021
 \end{etaremune}
 
-\textbf{Conferences \& Talks}
+\gsect{Conferences \& Talks}
 \begin{etaremune}
+	\item Talk @ \href{https://userweb.ucs.louisiana.edu/~C00424602/SIAMTXLA2023/}{6th Annual Meeting of the SIAM Texas-Louisiana Section} \\
+	Topic: A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation\\
+	University of Louisiana, Lafayette, LA, November 3-5, 2023
+	
 	\item Talk @ \href{https://www.math.uh.edu/siamtxla22/index.shtml}{5th Annual Meeting of the SIAM Texas-Louisiana Section} \\
 	University Of Houston, Houston, TX, November 4-6, 2022
+	
 	\item Talk @ \href{https://uh.edu/nsm/math/news-events/stories/2022-math/gspp_2022/}{Graduate Student Paper Presentation (GSPP)} \\
-	 Topic:Simulating lipid domain coarsening with TraceFEM\\
+	 Topic: Simulating lipid domain coarsening with TraceFEM\\
 	 University Of Houston, Houston, TX, April 29, 2022
-	\item Talk @ \href{https://people.smu.edu/sxu/2022-smu-fe-rodeo/}{SMU Finite Element Rodeo} \\ Topic: Finite Element Methods for Surface Navier-Stokes-Cahn-Hilliard Equations \\Southern Methodist University, Dallas, TX, March 4-5, 2022
+	
+	\item Talk @ \href{https://people.smu.edu/sxu/2022-smu-fe-rodeo/}{SMU Finite Element Rodeo} \\ 
+	Topic: Finite Element Methods for Surface Navier-Stokes-Cahn-Hilliard Equations \\
+	Southern Methodist University, Dallas, TX, March 4-5, 2022
 \end{etaremune}
 
 \end{document}
