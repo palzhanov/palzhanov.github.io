@@ -21,6 +21,7 @@
 \newcommand{\gbullet}{\textcolor{gray}{\textbullet} }
 \newcommand{\gsect}[1]{\textcolor{codepurple}{\textbf{{\Large \uppercase{#1} }}} \\ \hrule}
 \newcommand{\gsubsect}[1]{\textcolor{black}{\textbf{{\large #1 }}} }
+\newcommand{\gsubsectx}[1]{\textcolor{black}{{{\large #1 }}} }
 \pagestyle{empty}
 \begin{document}
 	\begin{center}
@@ -28,45 +29,81 @@
 +1 713 820 1919 \quad palzhanov@gmail.com
 	\end{center}
 
-
-\gsect{Experience}
-
+\gsect{Education}
 
 $\begin{array}{r l }
-\text{2019 - 2023} & \text{Graduate Researcher @ University Of Houston} \\
-\text{2018 - 2019} & \text{Academic Vice-Principal @ Silkway Lyceum} \\
-\text{2016 - 2017} & \text{Academic Vice-Principal @ Atyrau Bilim-Innovation High Schools} \\
-\text{2011 - 2018} & \text{Mathematics Teacher @ Bilim-Innovation High Schools}  
+	\text{2019 - 2023} & \text{Ph.D in Computational Science, University of Houston, Houston, TX} \\
+					   & \textsl{thesis: Numerical finite element methods for phase field equations} \\
+					   & \textsl{advisors: M.~Olshanskii; A.~Quaini} \\
+	\text{2015 - 2017} & \text{M.S. in Mathematics, Atyrau State University, Atyrau, Kazakhstan}\\
+					   & \textsl{thesis: Numerical methods based on energy minimization principle for computing thermal fields} \\
+					   & \textsl{advisor: B.~Kenzhegulov} \\
+	\text{2008 - 2012} & \text{B.S. in Mathematics, Auezov University, Shymkent, Kazakhstan}
 \end{array}$
+
+
+
+
+\gsect{Publications}
+\begin{etaremune}
+	\item \textsl{\href{https://doi.org/10.1007/s10915-023-02370-8}{A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation}},\\ M. Olshanskii, Y. Palzhanov, A. Quaini -- Journal of Scientific Computing, Oct 2023
+	\item \textsl{\href{https://doi.org/10.3390/biom13101473}{On fusogenicity of positively charged phased-separated lipid vesicles: experiments and computational simulations}},\\ Y. Wang, Y. Palzhanov, D Dang, A. Quaini, M. Olshanskii, S. Majd, -- Biomolecules, Sep 2023
+	\item \textsl{\href{https://doi.org/10.1016/j.bbamem.2022.183898}{Lipid domain coarsening and fluidity in multicomponent vesicles: A continuum model and its experimental validation}},\\ Y.~Wang, Y.~Palzhanov, A.~Quaini, M.~Olshanskii, S.~Majd -- BBA - Biomembranes, 2022	
+	\item \textsl{\href{https://link.springer.com/article/10.1007/s10013-022-00564-5}{A comparison of Cahn-Hilliard and Navier-Stokes-Cahn-Hilliard models on manifolds}},\\ M.~Olshanskii, Y.~Palzhanov, A.~Quaini -- Vietnam Journal of Mathematics, 2022	
+	\item \textsl{\href{https://www.sciencedirect.com/science/article/abs/pii/S0045782521004989}{A decoupled, stable, and linear FEM for a phase-field model of variable density two-phase incompressible surface flow}},\\ Y.~Palzhanov, A.~Zhiliakov, A.~Quaini, M.~Olshanskii -- 
+	Computer Methods in Applied Mechanics and Eng., 2021
+	\item \textsl{Numerical methods based on energy minimization principle for computing thermal fields},\\ Y.~Palzhanov, 2017 -- Master's thesis
+\end{etaremune}
+
 %\begin{itemize}
 %	\item Trained IMO(International mathematics olympiads) gold \href{https://www.imo-official.org/participant_r.aspx?id=30786}{medalist}.
 %	\item Served as an academic vice-principal in \href{https://bil.edu.kz/en/}{Atyrau BIL}, TOP-5 olympiad schools in Kazakhstan. 
 %	\item  Developed curriculum for building value-based school culture. 
 %\end{itemize}
 
+\gsect{Experience}
 
+\gsubsect{Graduate Researcher @ University Of Houston \hfill 2019 -- 2024}
 
-\gsect{Projects}
-
-\gsubsect{Two-phase flows on manifolds}
 \begin{itemize}
-	\item {Developed and analysed Navier–Stokes–Cahn–Hilliard model for two-phase surface flows}
+	\item {Developing Navier–Stokes–Cahn–Hilliard model for two-phase surface flows}
+	\begin{itemize}
 	\item {Contributed to finite element C++ package DROPS - CFD tool for simulating two-phase flows  to model flows}
 	\item {Integrated the collection of scientific software libraries Trilinos(BELOS, AMESOS2, EPETRA) to solve systems of linear equations with Flexible GMRES}
+			\item { \textsl{Tools \& Frameworks:} C++, Trilinos, Parallel Computing, Linux, CMAKE, GIT, Paraview}
+	\end{itemize}
 \end{itemize}
-\gsubsect{Multicomponent lipid membranes}
 \begin{itemize}
-	\item {Built computational model of lipid domain coarsening and fluidity }
-	\item {Studied fusogenicity of positively charged phased-separated lipid vesicle }
-	
+	\item {Modeling and experimenting with multicomponent lipid vesicles}
+	\begin{itemize}
+		\item {Implemented unconditionally energy stable \textsl{scalar auxiliary variable} algorithm for phase field equations }
+		\item {Studied fusogenicity of positively charged lipid vesicles via thermodynamically consistent NSCH H-model}
+		\item {\textsl{Tools \& Frameworks:} MATLAB, Python, DROPS, Cluster \& Cloud Computing}
+	\end{itemize}
 \end{itemize}
-
-\gsubsect{Reduced order modeling with neural networks}
 \begin{itemize}
-\item {Built and trained convolutional autoencoders for advection dominated systems }
-
+	\item {Reduced order modeling with Convolutional Autoencoders, LSTM, and Transformers}
+	\begin{itemize}
+		\item {Developed convolutional autoencoder neural network for order reduction of advection-dominated 2D flows}
+		\item {Implemented LSTM for temporal evolution prediction of rising thermal bubble }
+		\item {\textsl{Tools \& Frameworks:} OpenFoam, Tensorflow, Cluster \& Cloud Computing}
+	\end{itemize}
 \end{itemize}
 
+%
+%
+%\gsubsect{Academic Vice-Principal  @ Bilim-Innovation Lyceums \hfill 2011 - 2019 }
+%\begin{itemize}
+%	\item {Built computational model of lipid domain coarsening and fluidity }
+%	\item {Studied fusogenicity of positively charged phased-separated lipid vesicle }
+%\end{itemize}
+%
+%\gsubsect{Reduced order modeling with neural networks}
+%\begin{itemize}
+%\item {Built and trained convolutional autoencoders for advection dominated systems }
+%
+%\end{itemize}
+%
 
 %\textit{Membrane shape solver}\\
 %\hspace*{10mm} Researching the geometry of deforming fluid-elastic surface. Implementing solvers for geometric 
@@ -84,67 +121,47 @@ $\begin{array}{r l }
 
 
 
-\gsect{Skills}
-\textsl{Finite element methods \& CFD}\\
-\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
-\textsl{Numerical analysis}\\
-\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
-\textsl{HPC}\\
-\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
-\textsl{Machine Learning}\\
-\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
-%$\begin{array}{r l }
-	%\text{Numerical analysis:} & \text{Finite element methods \gbullet Numerical optimization \gbullet Preconditioning } \\
-	%\text{Machine Learning:} & \text{Tensorflow \gbullet Keras \gbullet Scikit-learn \gbullet Pandas \gbullet Numpy} \\
-	%\text{Programming Languages:} & \text{C/C++ \gbullet Python \gbullet MATLAB \gbullet Wolfram Mathematica \gbullet R} \\
-	%\text{Packages \& Softwares:} & \text{DROPS \gbullet DEALii \gbullet Paraview \gbullet VTK \gbullet Trilinos \gbullet Git} \\
-%\end{array}$
+					%\gsect{Skills}
+					%\textsl{Finite element methods \& CFD}\\
+					%\hspace*{10mm}  C++ CFD packages DROPS, DEALii, OpenFOAM; Unfitted finite element methods; Adaptive time-stepping  \\ 
+					%\hspace*{10mm} algorithms; Navier-Stokes equations; Cahn-Hilliard equation;\\
+					%\textsl{Numerical analysis}\\
+					%\hspace*{10mm}  Scientific computing libraries Trilinos; Preconditioning; Numerical Linear Algebra; GMRES;  \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+					%\textsl{HPC}\\
+					%\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+					%\textsl{Machine Learning}\\
+					%\hspace*{10mm}  Tensorflow;  Convolutional Neural Networks; Autoencoders; Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis.\\
+					%%$\begin{array}{r l }
+					%	%\text{Numerical analysis:} & \text{Finite element methods \gbullet Numerical optimization \gbullet Preconditioning } \\
+					%	%\text{Machine Learning:} & \text{Tensorflow \gbullet Keras \gbullet Scikit-learn \gbullet Pandas \gbullet Numpy} \\
+					%	%\text{Programming Languages:} & \text{C/C++ \gbullet Python \gbullet MATLAB \gbullet Wolfram Mathematica \gbullet R} \\
+					%	%\text{Packages \& Softwares:} & \text{DROPS \gbullet DEALii \gbullet Paraview \gbullet VTK \gbullet Trilinos \gbullet Git} \\
+					%%\end{array}$
 
-\gsect{Education}
-
-$\begin{array}{r l }
-\text{2019 - 2023} & \text{Ph.D in Computational Science, University of Houston, Houston, TX} \\
-\text{2015 - 2017} & \text{M.S. in Mathematics, Atyrau State University, Atyrau, Kazakhstan}\\
- \text{2008 - 2012} & \text{B.S. in Mathematics, Auezov University, Shymkent, Kazakhstan}
-\end{array}$
 
 \gsect{Certificates}
 \textsl{TensorFlow Developer} \href{https://coursera.org/share/f65948fc03c3da5785b670010c27bbe4}{\textsf{certificate}}\\
-\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.\\
+\hspace*{10mm}  Hands-on four-course Professional Certificate program, on Convolutional Neural Networks, Natural Language \\ \hspace*{10mm} Processing (NLP) and Time Series Analysis in Tensorflow.
 
-
-
-\newpage
-\gsect{Publications}
-\begin{etaremune}
-	\item \textsl{\href{https://doi.org/10.1007/s10915-023-02370-8}{A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation}},\\ M. Olshanskii, Y. Palzhanov, A. Quaini,\\
-	Journal of Scientific Computing, Oct 2023
-	\item \textsl{\href{https://doi.org/10.3390/biom13101473}{On fusogenicity of positively charged phased-separated lipid vesicles: experiments and computational simulations}},\\ Y. Wang, Y. Palzhanov, D Dang, A. Quaini, M. Olshanskii, S. Majd, \\
-	Biomolecules, Sep 2023
-	\item \textsl{\href{https://doi.org/10.1016/j.bbamem.2022.183898}{Lipid domain coarsening and fluidity in multicomponent lipidvesicles: A continuum based model and its experimental validation}},\\ Y.~Wang, Y.~Palzhanov, A.~Quaini, M.~Olshanskii, S.~Majd\\
-	Biochimica et Biophysica Acta(BBA) - Biomembranes, 2022	
-	\item \textsl{\href{https://link.springer.com/article/10.1007/s10013-022-00564-5}{A comparison of Cahn-Hilliard and Navier-Stokes-Cahn-Hilliard models on manifolds}},\\ M.~Olshanskii, Y.~Palzhanov, A.~Quaini \\
-	Vietnam Journal of Mathematics, 2022	
-	\item \textsl{\href{https://www.sciencedirect.com/science/article/abs/pii/S0045782521004989}{A decoupled, stable, and linear FEM for a phase-field model of variable density two-phase incompressible surface flow}},\\ Y.~Palzhanov, A.~Zhiliakov, A.~Quaini, M.~Olshanskii\\
-	Computer Methods in Applied Mechanics and Engineering, 2021
-\end{etaremune}
-
-\gsect{Conferences \& Talks}
-\begin{etaremune}
-	\item Talk @ \href{https://userweb.ucs.louisiana.edu/~C00424602/SIAMTXLA2023/}{6th Annual Meeting of the SIAM Texas-Louisiana Section} \\
-	Topic: A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation\\
-	University of Louisiana, Lafayette, LA, November 3-5, 2023
-	
-	\item Talk @ \href{https://www.math.uh.edu/siamtxla22/index.shtml}{5th Annual Meeting of the SIAM Texas-Louisiana Section} \\
-	University Of Houston, Houston, TX, November 4-6, 2022
-	
-	\item Talk @ \href{https://uh.edu/nsm/math/news-events/stories/2022-math/gspp_2022/}{Graduate Student Paper Presentation (GSPP)} \\
-	 Topic: Simulating lipid domain coarsening with TraceFEM\\
-	 University Of Houston, Houston, TX, April 29, 2022
-	
-	\item Talk @ \href{https://people.smu.edu/sxu/2022-smu-fe-rodeo/}{SMU Finite Element Rodeo} \\ 
-	Topic: Finite Element Methods for Surface Navier-Stokes-Cahn-Hilliard Equations \\
-	Southern Methodist University, Dallas, TX, March 4-5, 2022
-\end{etaremune}
+%%% Conference talks section removed
+%\newpage
+%
+%\gsect{Conferences \& Talks}
+%\begin{etaremune}
+%	\item Talk @ \href{https://userweb.ucs.louisiana.edu/~C00424602/SIAMTXLA2023/}{6th Annual Meeting of the SIAM Texas-Louisiana Section} \\
+%	Topic: A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation\\
+%	University of Louisiana, Lafayette, LA, November 3-5, 2023
+%	
+%	\item Talk @ \href{https://www.math.uh.edu/siamtxla22/index.shtml}{5th Annual Meeting of the SIAM Texas-Louisiana Section} \\
+%	University Of Houston, Houston, TX, November 4-6, 2022
+%	
+%	\item Talk @ \href{https://uh.edu/nsm/math/news-events/stories/2022-math/gspp_2022/}{Graduate Student Paper Presentation (GSPP)} \\
+%	 Topic: Simulating lipid domain coarsening with TraceFEM\\
+%	 University Of Houston, Houston, TX, April 29, 2022
+%	
+%	\item Talk @ \href{https://people.smu.edu/sxu/2022-smu-fe-rodeo/}{SMU Finite Element Rodeo} \\ 
+%	Topic: Finite Element Methods for Surface Navier-Stokes-Cahn-Hilliard Equations \\
+%	Southern Methodist University, Dallas, TX, March 4-5, 2022
+%\end{etaremune}
 
 \end{document}
