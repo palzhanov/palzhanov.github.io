@@ -1,0 +1,41 @@
+\documentclass[11pt,letterpaper]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb, hyperref}
+\usepackage[left=2cm, right=2.00cm, top=1.00cm, bottom=1.00cm]{geometry}
+\address{Yerbol Palzhanov\\ palzhanov@gmail.com \\ +1 713 820 19 19} 
+\signature{Yerbol Palzhanov} 
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=[RGB]{250, 20, 120},
+}
+\begin{document} 
+	\begin{letter}{Dear hiring manager:} 
+		\opening{} 
+		
+	I am a fifth-year applied mathematics Ph.D. student at the University of Houston, graduating May 2024. My research area is computational science, which includes numerical analysis, numerical linear algebra, HPC, finite element methods, and machine learning methods for fluid.
+
+During my doctoral studies, I worked on numerical solvers and algorithms for PDEs. Currently, I have 5 published papers in peer-reviewed journals. Here is my \href{https://scholar.google.com/citations?user=OCklKaMAAAAJ&hl=en}{Google scholar} profile.
+
+I developed a numerical solver for the surface Navier-Stokes-Cahn-Hilliard equations, which is now a part of open-source CFD package DROPS, C++. Modeling on surfaces is not a trivial task, that's why it requires lots of computational resources and better linear algebraic algorithms. To solve the systems of linear algebraic equations we use Trilinos, well-known collection of solvers by Sandia National Laboratories, namely the collection AMESOS2 for pre-conditioning and BELOS for solving iteratively with GMRES. 
+
+All the computations have been performed and analyzed in university's large compute clusters. I was also involved in a performance analysis project of numerical algorithms using TACC's (Texas Advanced Computing Center) Stampede2, which is  a supercomputer that provides HPC capabilities to thousands of researchers across the U.S. I have working knowledge of parallel computing, GPU programming, MPI, CUDA and recently I finished 2 months long "GPU programming specialization" course.
+
+Currently, I am working on developing Reduced Order Models for advection-dominated flow using deep neural networks. This is relatively new field, where we use Convolutional Autoencoders for dimensionality reduction and utilize LSTM, Transformer networks for evolution of the flow in time. I have well established knowledge of machine learning concepts and I use Tensorflow in projects.
+
+	
+	Again, I look forward to and would greatly appreciate speaking with you further. 
+	
+	Sincerely,\\
+	Yerbol Palzhanov
+	
+	 
+		
+		%\closing{} 
+		%\cc{Cclist} 
+		%\ps{adding a postscript} 
+		%\encl{list of enclosed material} 
+	\end{letter} 
+\end{document}
