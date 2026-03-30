@@ -1,48 +1,79 @@
 <!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<link rel="stylesheet" href="./styles.css">
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Yerbol Palzhanov</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
 <body>
-
-  <div class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-      <div class="nav-title">
-        Yerbol Palzhanov
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-content">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title">Professor</span>
+        </div>
       </div>
-    </div>
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+        <i class="fas fa-bars"></i>
       </label>
+      <nav class="nav-links">
+        <a class="nav-link" href="./index.html">Home</a>
+        <a class="nav-link" href="./publications.html">Publications</a>
+        <a class="nav-link" href="./collabs.html">Collaborators</a>
+        <a class="nav-link active" href="./contacts.html">Contact</a>
+        <a class="btn primary" href="./files/cv_yerbol_palzhanov.pdf" target="_blank"><i class="fas fa-download"></i> CV</a>
+      </nav>
     </div>
-    
-    <div class="nav-links">
-      <a href="./index.html">Home</a>
-      <a href="./publications.html" >Publications</a>
-      <a href="./collabs.html" >Collaborators</a>
-      <a href="./files/cv_yerbol_palzhanov.pdf"  target="_blank">CV</a>
-      <a href="./contacts.html"   >Contact</a>
-    </div>
+  </header>
+
+  <main class="page container">
+    <section class="panel emphasis">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h2>Let’s connect</h2>
+          <p class="muted">Reach out about research discussions, collaborations, or speaking invitations.</p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:yerbol@math.uh.edu">
+          <div class="contact-icon"><i class="fa fa-envelope"></i></div>
+          <div>
+            <strong>Email</strong><br>
+            <span class="muted">yerbol@math.uh.edu</span>
+          </div>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/palzhanov/">
+          <div class="contact-icon"><i class="fa fa-linkedin"></i></div>
+          <div>
+            <strong>LinkedIn</strong><br>
+            <span class="muted">Professional updates and networking</span>
+          </div>
+        </a>
+        <a class="contact-card" href="https://github.com/palzhanov/">
+          <div class="contact-icon"><i class="fa fa-github"></i></div>
+          <div>
+            <strong>GitHub</strong><br>
+            <span class="muted">Code and computational experiments</span>
+          </div>
+        </a>
+        <a class="contact-card" href="https://t.me/palzhanov/">
+          <div class="contact-icon"><i class="fa fa-telegram"></i></div>
+          <div>
+            <strong>Telegram</strong><br>
+            <span class="muted">Direct messages</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Last page update: 30 Mar 2026
   </div>
-
-  <div class="pubs">
-    <h1>Contacts</h1>
-    <p>My profiles at <a href="https://scholar.google.com/citations?user=OCklKaMAAAAJ&hl=en">Google scholar</a> and <a href="https://www.researchgate.net/profile/Yerbol-Palzhanov">ResearchGate.</a> </p>
-    <a class="fa fa-linkedin fa-2x" href="https://www.linkedin.com/in/palzhanov/"> </a>
-    <a class="fa fa-envelope fa-2x" href="mailto:yerbol@math.uh.edu"> </a>
-    <a class="fa fa-github fa-2x" href="https://github.com/palzhanov/"> </a>
-    <a class="fa fa-youtube fa-2x" href=""> </a>
-    <a class="fa fa-telegram fa-2x" href="https://t.me/palzhanov/"> </a>
-      
-  </div>
-
-
-
 </body>
-</html> 
+</html>

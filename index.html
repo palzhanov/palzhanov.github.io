@@ -1,48 +1,165 @@
 <!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="./styles.css">
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yerbol Palzhanov | Professor - Applied Mathematics & Scientific Computing</title>
+  <meta name="description" content="Professor Yerbol Palzhanov specializes in applied mathematics, scientific computing, surface PDEs, and reduced order modeling.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
 <body>
-
-  <div class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-      <div class="nav-title">
-        Yerbol Palzhanov
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-content">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title">Professor</span>
+        </div>
       </div>
-    </div>
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+        <i class="fas fa-bars"></i>
       </label>
+      <nav class="nav-links">
+        <a class="nav-link active" href="./index.html">Home</a>
+        <a class="nav-link" href="./publications.html">Publications</a>
+        <a class="nav-link" href="./collabs.html">Collaborators</a>
+        <a class="nav-link" href="./contacts.html">Contact</a>
+        <a class="btn primary" href="./files/cv_yerbol_palzhanov.pdf" target="_blank"><i class="fas fa-download"></i> CV</a>
+      </nav>
     </div>
-    
-    <div class="nav-links">
-      <a href="./index.html">Home</a>
-      <a href="./publications.html" >Publications</a>
-      <a href="./collabs.html" >Collaborators</a>
-      <a href="./files/cv_yerbol_palzhanov.pdf"  target="_blank">CV</a>
-      <a href="./contacts.html"  >Contact</a>
+  </header>
+
+  <main class="page">
+    <!-- Hero Section -->
+    <section class="hero container">
+      <div class="hero-content">
+        <div class="hero-badge">Applied Mathematics · Scientific Computing</div>
+        <h1>Advancing surface PDEs and computational modeling</h1>
+        <p class="intro-text">
+          I develop computational methods for surface PDEs and phase-field models, with applications to biophysical systems including lipid vesicles and fluid-structure interactions. My research combines reduced order modeling, numerical analysis, and scientific computing.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="./files/cv_yerbol_palzhanov.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Download CV</a>
+          <a class="btn secondary" href="./publications.html"><i class="fas fa-book"></i> Browse Publications</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Topics -->
+    <section class="topics-section container">
+      <div class="topics-grid">
+        <article class="topic-card">
+          <div class="topic-icon"><i class="fas fa-calculator"></i></div>
+          <h3>Reduced Order Modeling</h3>
+          <p>Efficient computational models for high-dimensional systems with rigorous stability and accuracy guarantees.</p>
+        </article>
+        <article class="topic-card">
+          <div class="topic-icon"><i class="fas fa-wave-square"></i></div>
+          <h3>Surface PDEs & FEM</h3>
+          <p>Advanced formulations for surface Navier–Stokes–Cahn–Hilliard systems using unfitted and trace finite elements.</p>
+        </article>
+        <article class="topic-card">
+          <div class="topic-icon"><i class="fas fa-microscope"></i></div>
+          <h3>Biophysical Modeling</h3>
+          <p>Continuum models for lipid vesicles, domain coarsening, and membrane dynamics validated with experiments.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights-section container">
+      <div class="section-header">
+        <h2>Latest Publications</h2>
+        <a href="./publications.html" class="btn secondary"><i class="fas fa-arrow-right"></i> All Publications</a>
+      </div>
+      <div class="highlights-grid">
+        <article class="highlight-card">
+          <div class="highlight-badge">2023</div>
+          <h4>On fusogenicity of positively charged phase-separated lipid vesicles</h4>
+          <p class="publication-meta">Biomolecules</p>
+          <p class="publication-authors">with Wang, Dang, Quaini, Olshanskii & Majd</p>
+          <a href="https://doi.org/10.3390/biom13101473" target="_blank" class="publication-link"><i class="fas fa-external-link-alt"></i> Read</a>
+        </article>
+        <article class="highlight-card">
+          <div class="highlight-badge">2023</div>
+          <h4>A scalar auxiliary variable unfitted FEM for the surface Cahn-Hilliard equation</h4>
+          <p class="publication-meta">Journal of Scientific Computing</p>
+          <p class="publication-authors">with Olshanskii & Quaini</p>
+          <a href="https://doi.org/10.1007/s10915-023-02370-8" target="_blank" class="publication-link"><i class="fas fa-external-link-alt"></i> Read</a>
+        </article>
+      </div>
+      <div class="profiles-section">
+        <p>Find more on <a href="https://scholar.google.com/citations?user=OCklKaMAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a> and <a href="https://www.researchgate.net/profile/Yerbol-Palzhanov" target="_blank"><i class="fas fa-network-wired"></i> ResearchGate</a></p>
+      </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section class="research-section container">
+      <div class="section-header">
+        <h2>Research Areas</h2>
+        <p class="section-subtitle">Focused collaborations across computational mathematics and biophysics</p>
+      </div>
+      <div class="research-grid">
+        <div class="research-area">
+          <h3>Numerical Methods</h3>
+          <ul>
+            <li>Unfitted finite element methods</li>
+            <li>Trace FEM for surface PDEs</li>
+            <li>Scalar auxiliary variable schemes</li>
+            <li>Stability and error analysis</li>
+          </ul>
+        </div>
+        <div class="research-area">
+          <h3>Model Reduction</h3>
+          <ul>
+            <li>Proper orthogonal decomposition</li>
+            <li>Reduced basis methods</li>
+            <li>Surrogate modeling</li>
+            <li>Parametric optimization</li>
+          </ul>
+        </div>
+        <div class="research-area">
+          <h3>Applications</h3>
+          <ul>
+            <li>Lipid bilayers and vesicles</li>
+            <li>Two-phase flows</li>
+            <li>Interface dynamics</li>
+            <li>Biomembrane mechanics</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="cta-section container">
+      <div class="cta-grid">
+        <article class="cta-card">
+          <h3><i class="fas fa-book-open"></i> Publications</h3>
+          <p>Explore journal articles and conference presentations on surface PDEs, phase-field models, and computational methods.</p>
+          <a href="./publications.html" class="btn-text">View full list <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="cta-card">
+          <h3><i class="fas fa-users"></i> Collaborators</h3>
+          <p>Meet my collaborators in computational mechanics, numerical analysis, and biophysical research.</p>
+          <a href="./collabs.html" class="btn-text">See collaborators <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="cta-card">
+          <h3><i class="fas fa-envelope"></i> Contact</h3>
+          <p>Interested in collaboration or have research inquiries? Get in touch via email or professional networks.</p>
+          <a href="./contacts.html" class="btn-text">Contact me <i class="fas fa-arrow-right"></i></a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2024 Yerbol Palzhanov. All rights reserved.</p>
+      <p class="footer-note">Last updated: 30 Mar 2026</p>
     </div>
-  </div>
-
-  
-  <div class="pubs">
-    <h1>Research</h1>
-    
-    <h4>Reduced order modeling</h4>
-    <h4>Numerical phase field equations on manifolds</h4>
-      
-  </div>
-
-  <footer>
-    <hr>
-    <p>Last page update: 31 Aug 2023<br>
   </footer>
-
 </body>
-</html> 
+</html>
