@@ -160,6 +160,113 @@ h1 {
   font-size: clamp(2.6rem, 5vw, 4.2rem);
 }
 
+.drp-section h1 {
+  max-width: 700px;
+  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  line-height: 1.05;
+}
+
+.drp-callout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.25rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--link);
+}
+
+.drp-count {
+  color: var(--link);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.drp-callout strong,
+.drp-callout span {
+  display: block;
+}
+
+.drp-callout strong {
+  font-size: 1rem;
+}
+
+.drp-callout div > span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.drp-projects {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.drp-project {
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--border);
+}
+
+.drp-project-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.drp-project h2,
+.drp-requirements h2 {
+  font-size: 1.18rem;
+  letter-spacing: -0.02em;
+}
+
+.drp-project h2,
+.drp-project p {
+  margin-bottom: 0;
+}
+
+.position-badge {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.55rem;
+  color: var(--link);
+  background: #eef2f8;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.drp-requirements {
+  margin-top: 1.75rem;
+}
+
+.drp-requirements ul {
+  margin-bottom: 1.5rem;
+}
+
+.drp-apply {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--link);
+  color: white;
+}
+
+.drp-apply a {
+  color: white;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.drp-apply a:hover {
+  color: white;
+}
+
 .contact-list,
 .papers,
 .teaching-list {
@@ -356,6 +463,15 @@ h1 {
   body.scrolled .profile-photo {
     width: 42px;
     height: 42px;
+  }
+
+  .drp-project-heading {
+    display: block;
+  }
+
+  .position-badge {
+    display: inline-block;
+    margin-bottom: 0.65rem;
   }
 
   .brand-name {
