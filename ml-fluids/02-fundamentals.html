@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamental methods | Machine Learning for Fluid Dynamics | Yerbol Palzhanov</title>
+  <meta name="description" content="A chapter-by-chapter guide to reduced-order models, latent dynamics, neural operators and other machine-learning methods for fluid dynamics and parametrized PDEs.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <link rel="stylesheet" href="./docs.css">
+</head>
+<body>
+  <header class="site-header docs-header">
+    <div class="container navbar" style="max-width:1180px">
+      <div class="brand-wrap">
+        <img src="../files/photo.jpg" alt="Yerbol Palzhanov" class="profile-photo">
+        <div class="brand-text">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title"><a href="../research.html">Research</a> / <a href="index.html">Machine learning for fluid dynamics</a></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="docs-layout">
+    <nav class="docs-nav" aria-label="Contents">
+      <details open id="toc">
+        <summary class="nav-toggle">Contents</summary>
+        <div class="nav-title">Contents</div>
+        <ul>
+<li><a href="index.html"><span class="num">1</span> Overview</a><ul><li><a href="index.html#why-hard"><span class="num">1.1</span> Why fluid flows are hard to compute</a></li><li><a href="index.html#problem"><span class="num">1.2</span> The many-query and real-time problem</a></li><li><a href="index.html#roles"><span class="num">1.3</span> Where machine learning enters</a></li><li><a href="index.html#history"><span class="num">1.4</span> A short history</a></li><li><a href="index.html#objects"><span class="num">1.5</span> What gets learned</a></li><li><a href="index.html#criteria"><span class="num">1.6</span> What to ask of a method</a></li><li><a href="index.html#traditions"><span class="num">1.7</span> Two research traditions</a></li><li><a href="index.html#howto"><span class="num">1.8</span> How to read these notes</a></li></ul></li>
+<li class="current"><a href="02-fundamentals.html"><span class="num">2</span> Fundamental methods</a><ul><li><a href="02-fundamentals.html#pod-galerkin"><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</a></li><li><a href="02-fundamentals.html#rb"><span class="num">2.2</span> Reduced basis methods and certified error bounds</a></li><li><a href="02-fundamentals.html#opinf"><span class="num">2.3</span> Operator inference</a></li><li><a href="02-fundamentals.html#sindy"><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</a></li><li><a href="02-fundamentals.html#podnn"><span class="num">2.5</span> POD with neural network regression (POD-NN)</a></li></ul></li>
+<li><a href="03-neural-roms.html"><span class="num">3</span> Neural reduced-order models and latent dynamics</a><ul><li><a href="03-neural-roms.html#cae"><span class="num">3.1</span> Nonlinear-manifold ROMs with autoencoders</a></li><li><a href="03-neural-roms.html#dlrom"><span class="num">3.2</span> DL-ROM and POD-DL-ROM</a></li><li><a href="03-neural-roms.html#gcarom"><span class="num">3.3</span> Graph convolutional autoencoder ROMs (GCA-ROM)</a></li><li><a href="03-neural-roms.html#koopman"><span class="num">3.4</span> Koopman autoencoders</a></li><li><a href="03-neural-roms.html#lasdi"><span class="num">3.5</span> Latent space dynamics identification (LaSDI)</a></li><li><a href="03-neural-roms.html#led"><span class="num">3.6</span> Learning effective dynamics (LED)</a></li><li><a href="03-neural-roms.html#ldnet"><span class="num">3.7</span> Latent Dynamics Networks (LDNets)</a></li></ul></li>
+<li><a href="04-operators.html"><span class="num">4</span> Operator learning</a><ul><li><a href="04-operators.html#deeponet"><span class="num">4.1</span> DeepONet</a></li><li><a href="04-operators.html#fno"><span class="num">4.2</span> Fourier Neural Operator and the neural operator framework</a></li><li><a href="04-operators.html#geometry"><span class="num">4.3</span> Neural operators on general geometries: Geo-FNO and GINO</a></li><li><a href="04-operators.html#cno"><span class="num">4.4</span> Convolutional Neural Operators (CNO)</a></li><li><a href="04-operators.html#transformers"><span class="num">4.5</span> Transformer operators: Galerkin Transformer, GNOT, Transolver</a></li><li><a href="04-operators.html#neural-fields"><span class="num">4.6</span> Neural-field operators: DINo and CORAL</a></li></ul></li>
+<li><a href="05-mesh-hybrid.html"><span class="num">5</span> Mesh-based learned simulators and hybrid solvers</a><ul><li><a href="05-mesh-hybrid.html#meshgraphnets"><span class="num">5.1</span> MeshGraphNets</a></li><li><a href="05-mesh-hybrid.html#mppde"><span class="num">5.2</span> Message passing neural PDE solvers</a></li><li><a href="05-mesh-hybrid.html#hybrid"><span class="num">5.3</span> Learned corrections inside a numerical solver</a></li></ul></li>
+<li><a href="06-physics-informed.html"><span class="num">6</span> Physics-informed learning</a><ul><li><a href="06-physics-informed.html#pinns"><span class="num">6.1</span> Physics-informed neural networks (PINNs)</a></li><li><a href="06-physics-informed.html#pideeponet"><span class="num">6.2</span> Physics-informed operator learning</a></li></ul></li>
+<li><a href="07-generative.html"><span class="num">7</span> Generative models and foundation models</a><ul><li><a href="07-generative.html#pderefiner"><span class="num">7.1</span> PDE-Refiner</a></li><li><a href="07-generative.html#acdm"><span class="num">7.2</span> Autoregressive conditional diffusion for turbulent flows</a></li><li><a href="07-generative.html#gencast"><span class="num">7.3</span> Diffusion-based ensemble forecasting at scale</a></li><li><a href="07-generative.html#poseidon"><span class="num">7.4</span> PDE foundation models: Poseidon</a></li></ul></li>
+<li><a href="08-benchmarks.html"><span class="num">8</span> Benchmarks and methodology</a><ul><li><a href="08-benchmarks.html#pdebench"><span class="num">8.1</span> Benchmark suites</a></li><li><a href="08-benchmarks.html#weak-baselines"><span class="num">8.2</span> Weak baselines and reporting bias</a></li></ul></li>
+<li><a href="09-directions.html"><span class="num">9</span> Open problems and research directions</a><ul><li><a href="09-directions.html#gap-geometry-dynamics"><span class="num">9.1</span> Geometry and dynamics are handled by different methods</a></li><li><a href="09-directions.html#gap-assimilation"><span class="num">9.2</span> Data assimilation for encoder-free latent models</a></li><li><a href="09-directions.html#gap-certification"><span class="num">9.3</span> Error estimates for learned surrogates</a></li><li><a href="09-directions.html#gap-chaos"><span class="num">9.4</span> Uncertainty and chaotic flows</a></li><li><a href="09-directions.html#gap-structure"><span class="num">9.5</span> Structure-preserving latent dynamics</a></li><li><a href="09-directions.html#gap-benchmark"><span class="num">9.6</span> Fair comparisons across the two traditions</a></li></ul></li>
+<li><a href="references.html">References</a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <main class="docs-main">
+      
+<section class="chapter" id="fundamentals">
+<p class="eyebrow">Chapter 2</p>
+<h2>2. Fundamental methods</h2>
+<p>Projection-based reduced-order models are the baseline every learned surrogate should be compared against when the mesh is fixed. They also supply the vocabulary used later: snapshots, reduced bases, offline/online phases, intrusive vs non-intrusive, and the Kolmogorov n-width.</p>
+
+<article class="method" id="pod-galerkin">
+<h3><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</h3>
+<p>Collect snapshots \(S=[u_h(t_1;\mu_1),\dots,u_h(t_m;\mu_m)]\in\mathbb{R}^{\mathcal{N}_h\times m}\) and compute the SVD \(S=U\Sigma W^\top\). The first \(N\) left singular vectors form the POD basis \(V_N\), which is optimal in the least-squares sense among all \(N\)-dimensional linear subspaces for the given snapshots. The solution is approximated as \(u_h\approx V_N u_N\), and the reduced equations come from projecting the full-order residual onto the basis:
+\[ V_N^\top\big( M V_N \dot u_N + \mathcal{N}_h(V_N u_N;\mu) - f_h(t)\big)=0. \]
+For nonlinear terms, the projected operator still costs \(O(\mathcal{N}_h)\) to evaluate unless one uses <em>hyper-reduction</em> (empirical interpolation, DEIM) to sample the nonlinearity at a few points.</p>
+<p><strong>Strengths:</strong> simple, interpretable, the reduced model inherits structure from the discretization. <strong>Limitations:</strong> intrusive (needs the solver's operators); POD-Galerkin can be unstable for convection-dominated and turbulent flows; and a linear subspace needs many modes when features are transported (the <em>Kolmogorov n-width</em> barrier). This last limitation is the main motivation for the nonlinear methods in <a href="03-neural-roms.html">Chapter 3</a>.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, G. Rozza, B. Stamm, <a href="https://doi.org/10.1007/978-3-319-22470-1" target="_blank" rel="noreferrer"><cite>Certified Reduced Basis Methods for Parametrized Partial Differential Equations</cite></a>, SpringerBriefs in Mathematics, 2016.</li></ul></div>
+<div class="demo ready"><span class="label">Demo notebook</span><p>POD of a transported bump in 1D viscous Burgers: snapshots, SVD and singular value decay, POD modes, projection error, a POD-Galerkin ROM with precomputed reduced operators, a parametric test at an unseen viscosity, and how transport slows the singular value decay.</p><p class="demo-links"><a href="https://github.com/palzhanov/fluid-ml-kb/blob/main/notebooks/01-pod-burgers.ipynb" target="_blank" rel="noreferrer">View on GitHub</a> <a href="https://colab.research.google.com/github/palzhanov/fluid-ml-kb/blob/main/notebooks/01-pod-burgers.ipynb" target="_blank" rel="noreferrer">Open in Colab</a> <a href="https://nbviewer.org/github/palzhanov/fluid-ml-kb/blob/main/notebooks/01-pod-burgers.ipynb" target="_blank" rel="noreferrer">nbviewer (interactive)</a></p></div>
+</article>
+
+<article class="method" id="rb">
+<h3><span class="num">2.2</span> Reduced basis methods and certified error bounds</h3>
+<p>The reduced basis method builds the basis from solutions at carefully chosen parameter values. A <em>greedy algorithm</em> repeatedly adds the snapshot at the parameter where an a posteriori error estimator is largest. For coercive problems with an affine parameter dependence the estimator is rigorous:
+\[ \|u_h(\mu)-V_N u_N(\mu)\|_X \le \frac{\|r_h(V_N u_N(\mu);\mu)\|_{X'}}{\alpha_{\mathrm{LB}}(\mu)}, \]
+where \(r_h\) is the full-order residual and \(\alpha_{\mathrm{LB}}\) a lower bound of the coercivity (or inf-sup) constant. Thanks to an offline/online decomposition, both the reduced solution and its error bound cost nothing that depends on \(\mathcal{N}_h\) online. Geometric parameters are handled by mapping to a reference domain.</p>
+<p>This <em>certification</em> is something almost no neural surrogate offers, and it is a recurring theme in <a href="09-directions.html">Chapter 9</a>.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, G. Rozza, B. Stamm, <a href="https://doi.org/10.1007/978-3-319-22470-1" target="_blank" rel="noreferrer"><cite>Certified Reduced Basis Methods for Parametrized Partial Differential Equations</cite></a>, SpringerBriefs in Mathematics, 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Thermal-block or parametrized Stokes problem: greedy basis construction and the effectivity of the error bound (e.g. with pyMOR).</p></div>
+</article>
+
+<article class="method" id="opinf">
+<h3><span class="num">2.3</span> Operator inference</h3>
+<p>Operator inference keeps the structure of a projection ROM but learns the reduced operators from data instead of projecting the solver. If the governing equations have polynomial nonlinearities (e.g. quadratic advection), the reduced model must have the form
+\[ \dot{\hat u} = \hat A\hat u + \hat H(\hat u\otimes\hat u) + \hat B f(t), \]
+with \(\hat u = V_N^\top u_h\). The matrices \(\hat A,\hat H,\hat B\) are fitted by a (regularized) least-squares problem on projected snapshots and their time derivatives. It is non-intrusive, cheap to train, handles time-dependent inputs naturally, and remains interpretable. Its limits are those of the linear subspace plus the assumption of known polynomial structure.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>B. Peherstorfer, K. Willcox, <a href="https://kiwi.oden.utexas.edu/papers/Non-intrusive-model-reduction-Peherstorfer-Willcox.pdf" target="_blank" rel="noreferrer"><cite>Data-driven operator inference for nonintrusive projection-based model reduction</cite></a>, Comput. Methods Appl. Mech. Eng., 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Operator inference for 1D Burgers (quadratic nonlinearity): compare with intrusive POD-Galerkin.</p></div>
+</article>
+
+<article class="method" id="sindy">
+<h3><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</h3>
+<p>SINDy discovers governing equations by sparse regression. Given state measurements \(X\) and derivatives \(\dot X\), build a library \(\Theta(X)\) of candidate terms (polynomials, trigonometric functions, ...) and solve
+\[ \dot X \approx \Theta(X)\,\Xi, \qquad \Xi \text{ sparse}, \]
+with sequentially thresholded least squares or another sparsity-promoting method. The result is a short, readable ODE. SINDy was introduced for low-dimensional systems; for fluids it is applied to POD coefficients or to learned latent coordinates (see LaSDI, <a href="03-neural-roms.html#lasdi">Section 3.5</a>).</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. L. Brunton, J. L. Proctor, J. N. Kutz, <a href="https://arxiv.org/abs/1509.03580" target="_blank" rel="noreferrer"><cite>Discovering governing equations from data by sparse identification of nonlinear dynamical systems</cite></a>, PNAS, 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Recover the Lorenz system, then apply SINDy to POD coefficients of the cylinder wake.</p></div>
+</article>
+
+<article class="method" id="podnn">
+<h3><span class="num">2.5</span> POD with neural network regression (POD-NN)</h3>
+<p>The bridge from classical to learned ROMs. Compute a POD basis, then train a neural network to map parameters directly to the reduced coefficients:
+\[ u_h(\mu) \approx V_N\,\phi_\theta(\mu). \]
+No equations are projected, so the method is fully non-intrusive and the online cost is one forward pass. Time can be included as an extra input. It inherits the n-width limitation of the linear basis and has no notion of dynamics, so it cannot respond to new time-dependent inputs. Structurally it is a DeepONet (<a href="04-operators.html#deeponet">Section 4.1</a>) whose trunk network has been replaced by POD modes.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, S. Ubbiali, <a href="https://infoscience.epfl.ch/record/232022" target="_blank" rel="noreferrer"><cite>Non-intrusive reduced order modeling of nonlinear problems using neural networks</cite></a>, J. Comput. Phys., 2018.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>POD-NN on a parametrized steady problem (e.g. lid-driven cavity at varying Reynolds number).</p></div>
+</article>
+
+</section>
+
+      <nav class="pager" aria-label="Chapters"><a class="prev" href="index.html"><small>Previous</small>← 1. Overview</a><a class="next" href="03-neural-roms.html"><small>Next</small>3. Neural reduced-order models and latent dynamics →</a></nav>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="max-width:1180px">© 2026 Yerbol Palzhanov</div>
+  </footer>
+  <script src="./docs.js"></script>
+</body>
+</html>
