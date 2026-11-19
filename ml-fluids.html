@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machine Learning for Fluid Dynamics | Yerbol Palzhanov</title>
+  <meta name="description" content="A chapter-by-chapter guide to reduced-order models, latent dynamics, neural operators and other machine-learning methods for fluid dynamics and parametrized PDEs.">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <style>
+    .docs-header .navbar { min-height: 78px; }
+    .docs-header .profile-photo { width: 52px; height: 52px; }
+    .docs-layout {
+      max-width: 1180px; margin: 0 auto; padding: 0 1.2rem;
+      display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 2.5rem;
+    }
+    .docs-nav {
+      position: sticky; top: 92px; align-self: start;
+      max-height: calc(100vh - 110px); overflow-y: auto;
+      padding: 1.6rem 0 2rem; font-size: 0.88rem; line-height: 1.45;
+    }
+    .docs-nav .nav-title { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.8rem; }
+    .docs-nav ul { list-style: none; padding: 0; margin: 0; }
+    .docs-nav > ul > li { margin: 0 0 0.7rem; }
+    .docs-nav > ul > li > a { font-weight: 600; color: var(--text); }
+    .docs-nav ul ul { margin-top: 0.25rem; padding-left: 0.9rem; border-left: 1px solid var(--border); }
+    .docs-nav ul ul li { margin: 0.2rem 0; }
+    .docs-nav ul ul a { color: var(--muted); }
+    .docs-nav a:hover, .docs-nav a.active { color: var(--link); }
+    .docs-nav .num { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 0.2rem; }
+    .docs-main { max-width: 820px; padding: 1.6rem 0 3.5rem; min-width: 0; }
+    .docs-main h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin-bottom: 0.8rem; }
+    .docs-main .lede { color: var(--muted); font-size: 1.05rem; }
+    .draft-note { background: var(--paper); border: 1px solid var(--border); border-left: 4px solid #b8860b; padding: 0.8rem 1rem; font-size: 0.92rem; margin: 1.2rem 0 0; }
+    .chapter { border-top: 1px solid var(--border); padding-top: 2.2rem; margin-top: 2.2rem; }
+    .chapter h2 { font-size: 1.8rem; }
+    .method { margin-top: 2rem; scroll-margin-top: 124px; }
+    .chapter { scroll-margin-top: 110px; }
+    .method h3 { font-size: 1.25rem; letter-spacing: -0.02em; }
+    .method h3 .num { color: var(--muted); margin-right: 0.35rem; }
+    .method ul { margin-bottom: 1rem; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.2rem 0; }
+    .refs, .demo { margin: 1rem 0 0; padding: 0.75rem 1rem; font-size: 0.9rem; border: 1px solid var(--border); }
+    .refs { background: rgba(255,255,255,0.55); }
+    .refs ul { list-style: none; padding: 0; }
+    .refs li { margin: 0.25rem 0; }
+    .demo { background: #eef2f8; border-color: #d6deeb; }
+    .demo p { margin: 0.2rem 0 0; }
+    .label { display: block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+    .verify { font-size: 0.72rem; font-weight: 600; color: #8a6400; background: #fbf3dc; border-radius: 999px; padding: 0.05rem 0.45rem; white-space: nowrap; }
+    .doc-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin: 0.5rem 0 1rem; display: block; overflow-x: auto; }
+    .doc-table th, .doc-table td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .doc-table th { font-weight: 600; }
+    .biblio { padding-left: 1.4rem; font-size: 0.92rem; }
+    .nav-toggle { display: none; }
+    @media (max-width: 900px) {
+      .docs-layout { grid-template-columns: 1fr; gap: 0; }
+      .docs-nav { position: static; max-height: none; padding: 1rem 0 0; }
+      .docs-nav details > ul { margin-top: 0.8rem; }
+      .nav-toggle { display: list-item; cursor: pointer; font-weight: 600; padding: 0.4rem 0.7rem; background: var(--paper); border: 1px solid var(--border); }
+      .nav-title { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header docs-header">
+    <div class="container navbar" style="max-width:1180px">
+      <div class="brand-wrap">
+        <img src="./files/photo.jpg" alt="Yerbol Palzhanov" class="profile-photo">
+        <div class="brand-text">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title"><a href="./research.html">Research</a> / Machine learning for fluid dynamics</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="docs-layout">
+    <nav class="docs-nav" aria-label="Contents">
+      <details open id="toc">
+        <summary class="nav-toggle">Contents</summary>
+        <div class="nav-title">Contents</div>
+        <ul>
+<li><a href="#overview"><span class="num">1</span> Overview</a><ul><li><a href="#problem"><span class="num">1.1</span> The many-query problem</a></li><li><a href="#objects"><span class="num">1.2</span> What gets learned</a></li><li><a href="#traditions"><span class="num">1.3</span> Two research traditions</a></li><li><a href="#howto"><span class="num">1.4</span> How to read this page</a></li></ul></li>
+<li><a href="#fundamentals"><span class="num">2</span> Fundamental methods</a><ul><li><a href="#pod-galerkin"><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</a></li><li><a href="#rb"><span class="num">2.2</span> Reduced basis methods and certified error bounds</a></li><li><a href="#opinf"><span class="num">2.3</span> Operator inference</a></li><li><a href="#sindy"><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</a></li><li><a href="#podnn"><span class="num">2.5</span> POD with neural network regression (POD-NN)</a></li></ul></li>
+<li><a href="#neural-roms"><span class="num">3</span> Neural reduced-order models and latent dynamics</a><ul><li><a href="#cae"><span class="num">3.1</span> Nonlinear-manifold ROMs with autoencoders</a></li><li><a href="#dlrom"><span class="num">3.2</span> DL-ROM and POD-DL-ROM</a></li><li><a href="#gcarom"><span class="num">3.3</span> Graph convolutional autoencoder ROMs (GCA-ROM)</a></li><li><a href="#koopman"><span class="num">3.4</span> Koopman autoencoders</a></li><li><a href="#lasdi"><span class="num">3.5</span> Latent space dynamics identification (LaSDI)</a></li><li><a href="#led"><span class="num">3.6</span> Learning effective dynamics (LED)</a></li><li><a href="#ldnet"><span class="num">3.7</span> Latent Dynamics Networks (LDNets)</a></li></ul></li>
+<li><a href="#operators"><span class="num">4</span> Operator learning</a><ul><li><a href="#deeponet"><span class="num">4.1</span> DeepONet</a></li><li><a href="#fno"><span class="num">4.2</span> Fourier Neural Operator and the neural operator framework</a></li><li><a href="#geometry"><span class="num">4.3</span> Neural operators on general geometries: Geo-FNO and GINO</a></li><li><a href="#cno"><span class="num">4.4</span> Convolutional Neural Operators (CNO)</a></li><li><a href="#transformers"><span class="num">4.5</span> Transformer operators: Galerkin Transformer, GNOT, Transolver</a></li><li><a href="#neural-fields"><span class="num">4.6</span> Neural-field operators: DINo and CORAL</a></li></ul></li>
+<li><a href="#mesh-hybrid"><span class="num">5</span> Mesh-based learned simulators and hybrid solvers</a><ul><li><a href="#meshgraphnets"><span class="num">5.1</span> MeshGraphNets</a></li><li><a href="#mppde"><span class="num">5.2</span> Message passing neural PDE solvers</a></li><li><a href="#hybrid"><span class="num">5.3</span> Learned corrections inside a numerical solver</a></li></ul></li>
+<li><a href="#physics-informed"><span class="num">6</span> Physics-informed learning</a><ul><li><a href="#pinns"><span class="num">6.1</span> Physics-informed neural networks (PINNs)</a></li><li><a href="#pideeponet"><span class="num">6.2</span> Physics-informed operator learning</a></li></ul></li>
+<li><a href="#generative"><span class="num">7</span> Generative models and foundation models</a><ul><li><a href="#pderefiner"><span class="num">7.1</span> PDE-Refiner</a></li><li><a href="#acdm"><span class="num">7.2</span> Autoregressive conditional diffusion for turbulent flows</a></li><li><a href="#gencast"><span class="num">7.3</span> Diffusion-based ensemble forecasting at scale</a></li><li><a href="#poseidon"><span class="num">7.4</span> PDE foundation models: Poseidon</a></li></ul></li>
+<li><a href="#benchmarks"><span class="num">8</span> Benchmarks and methodology</a><ul><li><a href="#pdebench"><span class="num">8.1</span> Benchmark suites</a></li><li><a href="#weak-baselines"><span class="num">8.2</span> Weak baselines and reporting bias</a></li></ul></li>
+<li><a href="#directions"><span class="num">9</span> Open problems and research directions</a><ul><li><a href="#gap-geometry-dynamics"><span class="num">9.1</span> Geometry and dynamics are handled by different methods</a></li><li><a href="#gap-assimilation"><span class="num">9.2</span> Data assimilation for encoder-free latent models</a></li><li><a href="#gap-certification"><span class="num">9.3</span> Error estimates for learned surrogates</a></li><li><a href="#gap-chaos"><span class="num">9.4</span> Uncertainty and chaotic flows</a></li><li><a href="#gap-structure"><span class="num">9.5</span> Structure-preserving latent dynamics</a></li><li><a href="#gap-benchmark"><span class="num">9.6</span> Fair comparisons across the two traditions</a></li></ul></li>
+<li><a href="#references">References</a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <main class="docs-main">
+      <p class="eyebrow">Research notes</p>
+      <h1>Machine learning for fluid dynamics</h1>
+      <p class="lede">From projection-based reduced-order models to latent dynamics networks, neural operators and generative surrogates: the main ideas, the key papers, and open problems.</p>
+      <p class="draft-note"><strong>Living document, first draft (November 2026).</strong> Summaries are written from the papers' main ideas; details marked <span class="verify">to verify</span> still need checking against the originals. Demo notebooks will be added section by section.</p>
+
+<section class="chapter" id="overview">
+<p class="eyebrow">Chapter 1</p>
+<h2>1. Overview</h2>
+<p>This page is a working map of data-driven and machine-learning methods for fluid dynamics and, more generally, for parametrized partial differential equations. It is organized like a set of lecture notes: first the problem and a vocabulary, then the classical reduced-order modeling methods that the neural approaches build on, then the neural methods grouped by what they learn. Each method section gives the core idea, the key equation, where it shines and where it breaks, and the papers to read. A small Jupyter notebook demo is planned for each method.</p>
+
+<article class="method" id="problem">
+<h3><span class="num">1.1</span> The many-query problem</h3>
+<p>Many tasks in engineering and science require solving the same PDE many times: design optimization, uncertainty quantification, control, inverse problems and real-time digital twins. A typical setting is a parametrized, time-dependent problem
+\[ \partial_t u + \mathcal{N}(u;\mu) = f(t), \qquad x\in\Omega(\mu),\ t\in(0,T], \]
+where \(\mu\) collects physical or geometric parameters and \(f(t)\) is a time-dependent input such as an inflow profile or an actuation signal. After discretization (finite elements, finite volumes) the state has \(\mathcal{N}_h\) degrees of freedom, often \(10^5\) to \(10^8\). A <em>surrogate</em> replaces the full solver with something much cheaper to evaluate, trained or built from a limited number of full solves.</p>
+</article>
+
+<article class="method" id="objects">
+<h3><span class="num">1.2</span> What gets learned</h3>
+<p>Most methods on this page approximate one of four objects. Asking which one a method learns is the fastest way to see what it can and cannot generalize over.</p>
+<table class="doc-table">
+<thead><tr><th>Object</th><th>Map</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td>Parameter-to-solution map</td><td>\((\mu,t)\mapsto u_h(t;\mu)\) on a fixed mesh</td><td>POD-NN, DL-ROM, POD-DL-ROM</td></tr>
+<tr><td>Operator between function spaces</td><td>\(a(\cdot)\mapsto u(\cdot)\)</td><td>DeepONet, FNO, CNO, GINO, Transolver</td></tr>
+<tr><td>Time-stepper (flow map)</td><td>\(u(t)\mapsto u(t+\Delta t)\)</td><td>MeshGraphNets, MP-PDE, PDE-Refiner</td></tr>
+<tr><td>Reduced (latent) dynamics</td><td>\(\dot z = F(z, f(t))\), then decode</td><td>Galerkin ROMs, LDNet, Koopman AE, LaSDI</td></tr>
+</tbody></table>
+<p>Generative models learn a <em>distribution</em> over one of these instead of a single prediction. Physics-informed training is not a separate object: it is a loss term that can be added to almost any of the architectures.</p>
+</article>
+
+<article class="method" id="traditions">
+<h3><span class="num">1.3</span> Two research traditions</h3>
+<p>The literature comes from two communities with different defaults, and much confusion comes from comparing results across them.</p>
+<ul>
+<li><strong>Numerical analysis and reduced-order modeling</strong> (e.g. the groups of Quarteroni, Rozza, Hesthaven, Manzoni, Willcox, Carlberg): few high-fidelity solves, fixed or parametrized geometry, offline/online splitting, emphasis on stability and error control. Benchmarks are specific engineering problems such as cavity flow, cylinder wakes or cardiac electrophysiology.</li>
+<li><strong>Machine learning and neural operators</strong> (e.g. the groups of Anandkumar, Karniadakis, Mishra, Welling, Thuerey): large training sets, generic benchmark suites, emphasis on resolution independence, geometry variation and scaling, and lately foundation models.</li>
+</ul>
+<p>Latent Dynamics Networks (Section 3.7) sit deliberately between the two, which is one reason they are a good lens for this page.</p>
+</article>
+
+<article class="method" id="howto">
+<h3><span class="num">1.4</span> How to read this page</h3>
+<p>Chapter 2 covers the classical methods that every later chapter refers back to. Chapters 3 to 7 cover neural methods by family. Chapter 8 collects benchmarks and methodological critiques, and Chapter 9 lists open problems. Equations are schematic: notation is unified across sections and may differ from the original papers. Sections marked <span class="verify">to verify</span> contain details that still need to be checked against the paper.</p>
+</article>
+
+</section>
+
+<section class="chapter" id="fundamentals">
+<p class="eyebrow">Chapter 2</p>
+<h2>2. Fundamental methods</h2>
+<p>Projection-based reduced-order models are the baseline every learned surrogate should be compared against when the mesh is fixed. They also supply the vocabulary used later: snapshots, reduced bases, offline/online phases, intrusive vs non-intrusive, and the Kolmogorov n-width.</p>
+
+<article class="method" id="pod-galerkin">
+<h3><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</h3>
+<p>Collect snapshots \(S=[u_h(t_1;\mu_1),\dots,u_h(t_m;\mu_m)]\in\mathbb{R}^{\mathcal{N}_h\times m}\) and compute the SVD \(S=U\Sigma W^\top\). The first \(N\) left singular vectors form the POD basis \(V_N\), which is optimal in the least-squares sense among all \(N\)-dimensional linear subspaces for the given snapshots. The solution is approximated as \(u_h\approx V_N u_N\), and the reduced equations come from projecting the full-order residual onto the basis:
+\[ V_N^\top\big( M V_N \dot u_N + \mathcal{N}_h(V_N u_N;\mu) - f_h(t)\big)=0. \]
+For nonlinear terms, the projected operator still costs \(O(\mathcal{N}_h)\) to evaluate unless one uses <em>hyper-reduction</em> (empirical interpolation, DEIM) to sample the nonlinearity at a few points.</p>
+<p><strong>Strengths:</strong> simple, interpretable, the reduced model inherits structure from the discretization. <strong>Limitations:</strong> intrusive (needs the solver's operators); POD-Galerkin can be unstable for convection-dominated and turbulent flows; and a linear subspace needs many modes when features are transported (the <em>Kolmogorov n-width</em> barrier). This last limitation is the main motivation for the nonlinear methods in Chapter 3.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, G. Rozza, B. Stamm, <a href="https://doi.org/10.1007/978-3-319-22470-1" target="_blank" rel="noreferrer"><cite>Certified Reduced Basis Methods for Parametrized Partial Differential Equations</cite></a>, SpringerBriefs in Mathematics, 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>POD of a 1D Burgers or 2D cylinder-wake snapshot set; singular value decay; POD-Galerkin ROM and its error vs number of modes.</p></div>
+</article>
+
+<article class="method" id="rb">
+<h3><span class="num">2.2</span> Reduced basis methods and certified error bounds</h3>
+<p>The reduced basis method builds the basis from solutions at carefully chosen parameter values. A <em>greedy algorithm</em> repeatedly adds the snapshot at the parameter where an a posteriori error estimator is largest. For coercive problems with an affine parameter dependence the estimator is rigorous:
+\[ \|u_h(\mu)-V_N u_N(\mu)\|_X \le \frac{\|r_h(V_N u_N(\mu);\mu)\|_{X'}}{\alpha_{\mathrm{LB}}(\mu)}, \]
+where \(r_h\) is the full-order residual and \(\alpha_{\mathrm{LB}}\) a lower bound of the coercivity (or inf-sup) constant. Thanks to an offline/online decomposition, both the reduced solution and its error bound cost nothing that depends on \(\mathcal{N}_h\) online. Geometric parameters are handled by mapping to a reference domain.</p>
+<p>This <em>certification</em> is something almost no neural surrogate offers, and it is a recurring theme in Chapter 9.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, G. Rozza, B. Stamm, <a href="https://doi.org/10.1007/978-3-319-22470-1" target="_blank" rel="noreferrer"><cite>Certified Reduced Basis Methods for Parametrized Partial Differential Equations</cite></a>, SpringerBriefs in Mathematics, 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Thermal-block or parametrized Stokes problem: greedy basis construction and the effectivity of the error bound (e.g. with pyMOR).</p></div>
+</article>
+
+<article class="method" id="opinf">
+<h3><span class="num">2.3</span> Operator inference</h3>
+<p>Operator inference keeps the structure of a projection ROM but learns the reduced operators from data instead of projecting the solver. If the governing equations have polynomial nonlinearities (e.g. quadratic advection), the reduced model must have the form
+\[ \dot{\hat u} = \hat A\hat u + \hat H(\hat u\otimes\hat u) + \hat B f(t), \]
+with \(\hat u = V_N^\top u_h\). The matrices \(\hat A,\hat H,\hat B\) are fitted by a (regularized) least-squares problem on projected snapshots and their time derivatives. It is non-intrusive, cheap to train, handles time-dependent inputs naturally, and remains interpretable. Its limits are those of the linear subspace plus the assumption of known polynomial structure.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>B. Peherstorfer, K. Willcox, <a href="https://kiwi.oden.utexas.edu/papers/Non-intrusive-model-reduction-Peherstorfer-Willcox.pdf" target="_blank" rel="noreferrer"><cite>Data-driven operator inference for nonintrusive projection-based model reduction</cite></a>, Comput. Methods Appl. Mech. Eng., 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Operator inference for 1D Burgers (quadratic nonlinearity): compare with intrusive POD-Galerkin.</p></div>
+</article>
+
+<article class="method" id="sindy">
+<h3><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</h3>
+<p>SINDy discovers governing equations by sparse regression. Given state measurements \(X\) and derivatives \(\dot X\), build a library \(\Theta(X)\) of candidate terms (polynomials, trigonometric functions, ...) and solve
+\[ \dot X \approx \Theta(X)\,\Xi, \qquad \Xi \text{ sparse}, \]
+with sequentially thresholded least squares or another sparsity-promoting method. The result is a short, readable ODE. SINDy was introduced for low-dimensional systems; for fluids it is applied to POD coefficients or to learned latent coordinates (see LaSDI, Section 3.5).</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. L. Brunton, J. L. Proctor, J. N. Kutz, <a href="https://arxiv.org/abs/1509.03580" target="_blank" rel="noreferrer"><cite>Discovering governing equations from data by sparse identification of nonlinear dynamical systems</cite></a>, PNAS, 2016.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Recover the Lorenz system, then apply SINDy to POD coefficients of the cylinder wake.</p></div>
+</article>
+
+<article class="method" id="podnn">
+<h3><span class="num">2.5</span> POD with neural network regression (POD-NN)</h3>
+<p>The bridge from classical to learned ROMs. Compute a POD basis, then train a neural network to map parameters directly to the reduced coefficients:
+\[ u_h(\mu) \approx V_N\,\phi_\theta(\mu). \]
+No equations are projected, so the method is fully non-intrusive and the online cost is one forward pass. Time can be included as an extra input. It inherits the n-width limitation of the linear basis and has no notion of dynamics, so it cannot respond to new time-dependent inputs. Structurally it is a DeepONet (Section 4.1) whose trunk network has been replaced by POD modes.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. S. Hesthaven, S. Ubbiali, <a href="https://infoscience.epfl.ch/record/232022" target="_blank" rel="noreferrer"><cite>Non-intrusive reduced order modeling of nonlinear problems using neural networks</cite></a>, J. Comput. Phys., 2018.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>POD-NN on a parametrized steady problem (e.g. lid-driven cavity at varying Reynolds number).</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="neural-roms">
+<p class="eyebrow">Chapter 3</p>
+<h2>3. Neural reduced-order models and latent dynamics</h2>
+<p>These methods keep the reduced-order modeling idea of a small latent state but replace the linear basis, the reduced dynamics, or both, with neural networks.</p>
+
+<article class="method" id="cae">
+<h3><span class="num">3.1</span> Nonlinear-manifold ROMs with autoencoders</h3>
+<p>Replace the linear approximation \(u_h\approx V_N u_N\) with a nonlinear decoder \(u_h\approx g_\theta(z)\), \(z\in\mathbb{R}^n\), learned by a convolutional autoencoder from snapshots. A nonlinear manifold of small dimension can represent transported features that would need many POD modes. The dynamics are still obtained from the governing equations, by projecting the full-order residual onto the tangent space of the manifold (manifold Galerkin) or by minimizing the residual (manifold LSPG):
+\[ z^{n+1} = \arg\min_z \big\| r_h\big(g_\theta(z);\mu\big)\big\|. \]
+This is intrusive and needs hyper-reduction to be fast, but it keeps the physics in the time stepping.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>K. Lee, K. T. Carlberg, <a href="https://arxiv.org/abs/1812.08373" target="_blank" rel="noreferrer"><cite>Model reduction of dynamical systems on nonlinear manifolds using deep convolutional autoencoders</cite></a>, J. Comput. Phys., 2020.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Autoencoder vs POD reconstruction error on an advecting pulse (1D linear advection or Burgers).</p></div>
+</article>
+
+<article class="method" id="dlrom">
+<h3><span class="num">3.2</span> DL-ROM and POD-DL-ROM</h3>
+<p>DL-ROM, from the Politecnico di Milano group, makes the nonlinear-manifold idea fully non-intrusive. A decoder \(D\) maps a latent code to the full field, an encoder \(E\) maps snapshots to the latent space (used in training only), and a feed-forward network \(\phi\) maps \((t,\mu)\) to the latent code. Schematically the loss is
+\[ \omega\,\big\|u_h(t;\mu)-D(\phi(t,\mu))\big\|^2 + (1-\omega)\,\big\|E(u_h(t;\mu))-\phi(t,\mu)\big\|^2. \]
+Online, the model is just \(D\circ\phi\). POD-DL-ROM first compresses the snapshots with (randomized) POD and runs the autoencoder on the POD coefficients, which makes training much cheaper and allows larger problems.</p>
+<p><strong>Limitation:</strong> time enters as an input coordinate, so there are no actual dynamics and the model cannot respond to a new time-dependent input signal. This is precisely what LDNets address.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. Fresca, L. Dede&#x27;, A. Manzoni, <a href="https://arxiv.org/abs/2001.04001" target="_blank" rel="noreferrer"><cite>A comprehensive deep learning-based approach to reduced order modeling of nonlinear time-dependent parametrized PDEs</cite></a>, J. Sci. Comput., 2021.</li><li>S. Fresca, A. Manzoni, <a href="https://arxiv.org/abs/2101.11845" target="_blank" rel="noreferrer"><cite>POD-DL-ROM: enhancing deep learning-based reduced order models for nonlinear parametrized PDEs by proper orthogonal decomposition</cite></a>, Comput. Methods Appl. Mech. Eng., 2022.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>POD-DL-ROM on a parametrized unsteady flow (cylinder wake at varying Reynolds number).</p></div>
+</article>
+
+<article class="method" id="gcarom">
+<h3><span class="num">3.3</span> Graph convolutional autoencoder ROMs (GCA-ROM)</h3>
+<p>Convolutional autoencoders need structured grids. GCA-ROM uses graph convolutions with mesh-based pooling so the encoder and decoder operate directly on unstructured finite element meshes, with a parameter-to-latent network as in DL-ROM. It brings nonlinear-manifold ROMs to the meshes used in practice and connects the ROM community to the graph-network methods of Chapter 5. The mesh is fixed across samples in the main setting. Which test cases are covered, and whether time dependence is treated, is <span class="verify">to verify</span>.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>F. Pichi, B. Moya, J. S. Hesthaven, <a href="https://arxiv.org/abs/2305.08573" target="_blank" rel="noreferrer"><cite>A graph convolutional autoencoder approach to model order reduction for parametrized PDEs</cite></a>, J. Comput. Phys., 2024.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Graph autoencoder on an unstructured FE mesh (e.g. flow around an obstacle with varying inflow).</p></div>
+</article>
+
+<article class="method" id="koopman">
+<h3><span class="num">3.4</span> Koopman autoencoders</h3>
+<p>Koopman theory says that nonlinear dynamics act linearly on a (generally infinite-dimensional) space of observables. A Koopman autoencoder learns a finite set of observables \(z=\varphi(u)\) in which the dynamics are approximately linear,
+\[ z_{k+1} = K z_k,\qquad u_k \approx \varphi^{-1}(z_k), \]
+trained with reconstruction, linear-prediction and multi-step losses. Linear latent dynamics are easy to analyze and to use for control and spectral analysis. Systems with continuous spectra and chaotic flows are hard to capture with a fixed linear operator; the paper addresses this partly with an auxiliary network that makes the eigenvalues depend on the state.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>B. Lusch, J. N. Kutz, S. L. Brunton, <a href="https://arxiv.org/abs/1712.09707" target="_blank" rel="noreferrer"><cite>Deep learning for universal linear embeddings of nonlinear dynamics</cite></a>, Nature Communications, 2018.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Koopman autoencoder for the nonlinear pendulum and for cylinder-wake POD coefficients; compare to DMD.</p></div>
+</article>
+
+<article class="method" id="lasdi">
+<h3><span class="num">3.5</span> Latent space dynamics identification (LaSDI)</h3>
+<p>LaSDI combines an autoencoder with SINDy: snapshots are encoded to a latent trajectory \(z(t)\), and a sparse, interpretable ODE \(\dot z = \Theta(z)\,\Xi(\mu)\) is identified in the latent space for each training parameter. For a new parameter, the coefficients \(\Xi(\mu)\) are interpolated. The result is an interpretable latent model with genuine dynamics. Its accuracy depends on how well coefficient interpolation works across the parameter space.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>W. D. Fries, X. He, Y. Choi, <a href="https://arxiv.org/abs/2203.02076" target="_blank" rel="noreferrer"><cite>LaSDI: Parametric latent space dynamics identification</cite></a>, Comput. Methods Appl. Mech. Eng., 2022.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Autoencoder + SINDy on parametrized 1D Burgers; interpolation of coefficients to unseen parameters.</p></div>
+</article>
+
+<article class="method" id="led">
+<h3><span class="num">3.6</span> Learning effective dynamics (LED)</h3>
+<p>LED uses an autoencoder to obtain a latent state and a recurrent network (LSTM) to advance it in time. Its distinctive idea is <em>multiscale coupling</em>: the model alternates between long, cheap stretches of latent propagation and short bursts of the full solver that bring the trajectory back to the true dynamics. This trades accuracy against cost explicitly and is an early example of the hybrid approaches in Section 5.3.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>P. R. Vlachas, G. Arampatzis, C. Uhler, P. Koumoutsakos, <a href="https://arxiv.org/abs/2006.13431" target="_blank" rel="noreferrer"><cite>Multiscale simulations of complex systems by learning their effective dynamics</cite></a>, Nature Machine Intelligence, 2022.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Latent RNN on Kuramoto–Sivashinsky with and without periodic full-solver corrections.</p></div>
+</article>
+
+<article class="method" id="ldnet">
+<h3><span class="num">3.7</span> Latent Dynamics Networks (LDNets)</h3>
+<p>LDNets learn a low-dimensional latent state \(s(t)\in\mathbb{R}^{N_s}\) whose evolution is driven by time-dependent inputs \(f(t)\), together with a decoder that returns the field at any query point:
+\[ \begin{aligned} \dot s(t) &= \mathcal{F}_\theta\big(s(t), f(t)\big),\quad s(0)=s_0,\\ u(x,t)&\approx \mathcal{R}_\theta\big(s(t), x\big). \end{aligned} \]
+Both \(\mathcal{F}_\theta\) (the dynamics network) and \(\mathcal{R}_\theta\) (the reconstruction network) are small fully connected networks, trained end to end by integrating the latent ODE and matching outputs at observed space–time points.</p>
+<p>The key difference from Sections 3.1 to 3.6 is that there is <strong>no encoder</strong>. The latent state is never obtained by compressing a high-dimensional snapshot; it is generated by the learned dynamics from a fixed starting point, and the model discovers whatever latent coordinates best explain the outputs. Consequences:</p>
+<ul>
+<li>Training data need not live on a common mesh, and outputs can be queried anywhere in the domain.</li>
+<li>Time-dependent inputs are first-class, which suits control and digital-twin settings.</li>
+<li>The models are small, and the latent dimension can be very low.</li>
+</ul>
+<p><strong>Limitations and open points:</strong> the geometry is fixed; without an encoder, a new observed state (a different initial condition or measurements) cannot be absorbed directly; training backpropagates through the time integration; and there is no built-in physics or error estimate. The paper's test cases include advection–diffusion–reaction, cardiac electrophysiology and an unsteady incompressible flow with time-dependent inputs; the exact configurations are <span class="verify">to verify</span>.</p>
+<p><strong>Related:</strong> DINo (Section 4.6) also combines a latent ODE with a neural-field decoder, and is the closest analogue from the machine-learning community. The reconstruction network \(\mathcal{R}_\theta(s,x)\) has the same "code plus query point" structure as a DeepONet (Section 4.1), with the code coming from a dynamical system instead of a branch network.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>F. Regazzoni, S. Pagani, M. Salvador, L. Dede&#x27;, A. Quarteroni, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11258335" target="_blank" rel="noreferrer"><cite>Learning the intrinsic dynamics of spatio-temporal processes through Latent Dynamics Networks</cite></a>, Nature Communications, 2024.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Minimal LDNet in JAX or PyTorch on 1D advection–diffusion driven by a time-varying source; compare to POD-DL-ROM on the same data.</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="operators">
+<p class="eyebrow">Chapter 4</p>
+<h2>4. Operator learning</h2>
+<p>Neural operators learn maps between function spaces, for example from a coefficient field or an initial condition to the solution. They are usually trained on many input–output pairs and aim to be independent of the discretization.</p>
+
+<article class="method" id="deeponet">
+<h3><span class="num">4.1</span> DeepONet</h3>
+<p>Motivated by a universal approximation theorem for operators, DeepONet writes the output function as a linear combination of learned basis functions of the query point:
+\[ \mathcal{G}(a)(y) \approx \sum_{k=1}^{p} b_k(a)\,t_k(y) + b_0. \]
+The <em>branch network</em> takes the input function \(a\) sampled at fixed sensor locations and outputs the coefficients \(b_k\); the <em>trunk network</em> takes the query location \(y\) (space, and possibly time) and outputs the basis functions \(t_k\). Outputs can be queried anywhere, but inputs must be given at the same sensors. Because the output is linear in the trunk basis, DeepONet behaves like a learned linear reduced basis in the output space and faces the same n-width difficulty for transport-dominated problems.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>L. Lu, P. Jin, G. Pang, Z. Zhang, G. E. Karniadakis, <a href="https://arxiv.org/abs/1910.03193" target="_blank" rel="noreferrer"><cite>Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators</cite></a>, Nature Machine Intelligence, 2021.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>DeepONet for the antiderivative operator and for 1D diffusion–reaction; visualize trunk basis functions next to POD modes.</p></div>
+</article>
+
+<article class="method" id="fno">
+<h3><span class="num">4.2</span> Fourier Neural Operator and the neural operator framework</h3>
+<p>A neural operator stacks layers of the form
+\[ v_{l+1}(x) = \sigma\Big(W v_l(x) + \int_\Omega \kappa_\phi(x,y)\,v_l(y)\,dy\Big). \]
+The Fourier Neural Operator parametrizes the kernel integral in Fourier space: transform, multiply the lowest \(k_{\max}\) modes by learned weights, transform back,
+\[ v_{l+1} = \sigma\big(W v_l + \mathcal{F}^{-1}(R_\phi\cdot \mathcal{F}v_l)\big). \]
+With the FFT each layer costs \(O(N\log N)\) on a uniform grid. Since the weights live on Fourier modes, the same model can be evaluated on different grids; how well this "zero-shot super-resolution" works in practice depends on how much high-frequency content the solution has. The general framework, universal approximation results and other kernel parametrizations (graph, low-rank, multipole) are in the JMLR paper.</p>
+<p><strong>Limitations:</strong> uniform grids; spectral truncation struggles with shocks and sharp fronts; aliasing when changing resolution (see Section 4.4); autoregressive rollouts accumulate error.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>Z. Li, N. Kovachki, K. Azizzadenesheli, B. Liu, K. Bhattacharya, A. Stuart, A. Anandkumar, <a href="https://arxiv.org/abs/2010.08895" target="_blank" rel="noreferrer"><cite>Fourier Neural Operator for parametric partial differential equations</cite></a>, ICLR, 2021.</li><li>N. Kovachki, Z. Li, B. Liu, K. Azizzadenesheli, K. Bhattacharya, A. Stuart, A. Anandkumar, <a href="https://arxiv.org/abs/2108.08481" target="_blank" rel="noreferrer"><cite>Neural Operator: Learning maps between function spaces</cite></a>, JMLR, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>FNO on 1D Burgers and 2D Navier–Stokes vorticity on the torus; test on a finer grid than training.</p></div>
+</article>
+
+<article class="method" id="geometry">
+<h3><span class="num">4.3</span> Neural operators on general geometries: Geo-FNO and GINO</h3>
+<p>FNO needs a regular grid. <strong>Geo-FNO</strong> learns (or is given) a deformation from the irregular physical domain to a latent uniform grid and applies FNO there. <strong>GINO</strong> encodes a point cloud and a signed distance function of the geometry onto a regular latent grid with a graph neural operator, applies FNO on that grid, and decodes to arbitrary query points with another graph operator. GINO targets large 3D problems such as surface pressure on car geometries for drag prediction. Both focus mainly on steady problems; unsteady flows with varying geometry remain less explored.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>Z. Li, D. Z. Huang, B. Liu, A. Anandkumar, <a href="https://arxiv.org/abs/2207.05209" target="_blank" rel="noreferrer"><cite>Fourier Neural Operator with learned deformations for PDEs on general geometries</cite></a>, JMLR, 2023.</li><li>Z. Li et al., <a href="https://arxiv.org/abs/2309.00583" target="_blank" rel="noreferrer"><cite>Geometry-Informed Neural Operator for large-scale 3D PDEs</cite></a>, NeurIPS, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Geo-FNO on flow around airfoils of varying shape (steady).</p></div>
+</article>
+
+<article class="method" id="cno">
+<h3><span class="num">4.4</span> Convolutional Neural Operators (CNO)</h3>
+<p>CNO builds an operator from U-Net-style convolutions while respecting the equivalence between the continuous operator and its discrete implementation: functions are treated as band-limited, and up-sampling, down-sampling and nonlinearities are arranged to avoid aliasing. The paper argues that this makes the learned map a well-defined operator across resolutions and reports gains over FNO and other baselines on a suite of benchmark PDEs. It also reminds us that a well-designed convolutional network is a strong baseline for operator learning on regular grids.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>B. Raonić, R. Molinaro, T. De Ryck, T. Rohner, F. Bartolucci, R. Alaifari, S. Mishra, E. de Bézenac, <a href="https://arxiv.org/abs/2302.01178" target="_blank" rel="noreferrer"><cite>Convolutional Neural Operators for robust and accurate learning of PDEs</cite></a>, NeurIPS, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Aliasing experiment: FNO vs CNO evaluated at several resolutions.</p></div>
+</article>
+
+<article class="method" id="transformers">
+<h3><span class="num">4.5</span> Transformer operators: Galerkin Transformer, GNOT, Transolver</h3>
+<p>Treat every mesh point as a token and read attention as a learned kernel integral. The <strong>Galerkin Transformer</strong> drops the softmax and normalizes keys and values instead, giving linear cost in the number of points and an interpretation as a Petrov–Galerkin projection:
+\[ z = Q\,\frac{K^\top V}{n}. \]
+<strong>GNOT</strong> mixes several input functions (geometry, boundary conditions, parameters) through a normalized cross-attention and a geometry-gated mixture of experts. <strong>Transolver</strong> introduces "physics attention": each point is softly assigned to one of \(M\ll n\) learned <em>slices</em>, attention runs among the \(M\) slice tokens, and results are broadcast back to the points,
+\[ w = \operatorname{softmax}(\mathrm{Proj}(x)),\qquad z_j = \frac{\sum_i w_{ij}x_i}{\sum_i w_{ij}}. \]
+These methods handle unstructured meshes and varying geometry. The slice tokens are effectively a learned low-dimensional representation, which suggests an interesting link to reduced bases that has not been explored much.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. Cao, <a href="https://arxiv.org/abs/2105.14995" target="_blank" rel="noreferrer"><cite>Choose a Transformer: Fourier or Galerkin</cite></a>, NeurIPS, 2021.</li><li>Z. Hao et al., <a href="https://arxiv.org/abs/2302.14376" target="_blank" rel="noreferrer"><cite>GNOT: A General Neural Operator Transformer for operator learning</cite></a>, ICML, 2023.</li><li>H. Wu, H. Luo, H. Wang, J. Wang, M. Long, <a href="https://arxiv.org/abs/2402.02366" target="_blank" rel="noreferrer"><cite>Transolver: A fast Transformer solver for PDEs on general geometries</cite></a>, ICML, 2024.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Small Transolver on an airfoil or elasticity dataset; visualize the learned slices next to POD modes.</p></div>
+</article>
+
+<article class="method" id="neural-fields">
+<h3><span class="num">4.6</span> Neural-field operators: DINo and CORAL</h3>
+<p>Represent each field by a small code \(z\) that modulates a shared implicit neural representation \(f_\theta(x; z)\), then learn the dynamics or the operator on the codes. <strong>DINo</strong> obtains codes by auto-decoding (optimizing a code per sample) and integrates a latent ODE on them, giving a model that is continuous in space and time and works from irregularly sampled observations. <strong>CORAL</strong> uses the same idea with meta-learned codes and learns operators between codes, handling general geometries. These are the ML-community relatives of LDNets: the main differences are that LDNets do not fit codes to observed states and that their latent dynamics are driven by external inputs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>Y. Yin, M. Kirchmeyer, J.-Y. Franceschi, A. Rakotomamonjy, P. Gallinari, <a href="https://arxiv.org/abs/2209.14855" target="_blank" rel="noreferrer"><cite>Continuous PDE dynamics forecasting with implicit neural representations</cite></a>, ICLR, 2023.</li><li>L. Serrano et al., <a href="https://arxiv.org/abs/2306.07266" target="_blank" rel="noreferrer"><cite>Operator learning with neural fields: Tackling PDEs on general geometries</cite></a>, NeurIPS, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Fit a modulated neural field to 2D vorticity snapshots and learn a latent ODE on the codes.</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="mesh-hybrid">
+<p class="eyebrow">Chapter 5</p>
+<h2>5. Mesh-based learned simulators and hybrid solvers</h2>
+<p>Instead of learning a global map, these methods learn a local update rule on the simulation mesh and apply it repeatedly, or they keep a numerical solver and learn a correction to it.</p>
+
+<article class="method" id="meshgraphnets">
+<h3><span class="num">5.1</span> MeshGraphNets</h3>
+<p>MeshGraphNets learn the time step \(u(t)\mapsto u(t+\Delta t)\) with message passing on the simulation mesh in an encode–process–decode architecture. Each processing layer updates edges and then nodes,
+\[ e'_{ij} = f_e(e_{ij}, v_i, v_j), \qquad v'_i = f_v\Big(v_i, \sum_j e'_{ij}\Big). \]
+Training uses one-step targets with noise injection so that long rollouts stay stable, and the method supports adaptive remeshing. It handles unstructured meshes and varying geometry naturally. The limitations are error accumulation over long rollouts and the limited receptive field of local message passing: effects that are global, such as pressure in incompressible flow, need many layers or multiscale graphs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>T. Pfaff, M. Fortunato, A. Sanchez-Gonzalez, P. W. Battaglia, <a href="https://arxiv.org/abs/2010.03409" target="_blank" rel="noreferrer"><cite>Learning mesh-based simulation with graph networks</cite></a>, ICLR, 2021.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Tiny MeshGraphNet on a 2D cylinder-flow dataset; rollout error vs time.</p></div>
+</article>
+
+<article class="method" id="mppde">
+<h3><span class="num">5.2</span> Message passing neural PDE solvers</h3>
+<p>This work studies what it takes to make message-passing solvers stable and general: the <em>pushforward trick</em> (training on the model's own perturbed predictions to reduce distribution shift in rollouts), <em>temporal bundling</em> (predicting several future steps at once), and conditioning on PDE parameters so that one model covers a family of equations.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>J. Brandstetter, D. Worrall, M. Welling, <a href="https://arxiv.org/abs/2202.03376" target="_blank" rel="noreferrer"><cite>Message passing neural PDE solvers</cite></a>, ICLR, 2022.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Effect of temporal bundling and the pushforward trick on rollout stability for 1D Burgers/KdV.</p></div>
+</article>
+
+<article class="method" id="hybrid">
+<h3><span class="num">5.3</span> Learned corrections inside a numerical solver</h3>
+<p>Keep a differentiable CFD solver at coarse resolution and learn the parts it gets wrong. In the paper by Kochkov and coauthors, a convolutional network supplies learned interpolation coefficients inside a finite-volume scheme for 2D turbulence, trained end to end by unrolling the solver so that coarse simulations track downsampled high-resolution ones. Because the solver's structure (conservation, time stepping) is kept, these models tend to be more stable and generalize better than pure surrogates. They require a differentiable solver, and the paper treats periodic 2D domains. The analogous idea in reduced-order modeling is closure modeling for POD-Galerkin ROMs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>D. Kochkov, J. A. Smith, A. Alieva, Q. Wang, M. P. Brenner, S. Hoyer, <a href="https://arxiv.org/abs/2102.01010" target="_blank" rel="noreferrer"><cite>Machine learning–accelerated computational fluid dynamics</cite></a>, PNAS, 2021.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Learned correction for a coarse 1D Burgers finite-volume solver, trained by unrolling in JAX.</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="physics-informed">
+<p class="eyebrow">Chapter 6</p>
+<h2>6. Physics-informed learning</h2>
+<p>Physics-informed methods put the governing equations into the loss function. They can be combined with most architectures above.</p>
+
+<article class="method" id="pinns">
+<h3><span class="num">6.1</span> Physics-informed neural networks (PINNs)</h3>
+<p>Represent the solution by a network \(u_\theta(x,t)\) and minimize the PDE residual at collocation points together with boundary, initial and data misfits:
+\[ \mathcal{L}(\theta) = \frac{1}{N_r}\sum_{r}\big|\partial_t u_\theta + \mathcal{N}(u_\theta)\big|^2(x_r,t_r) + \lambda_b\,\mathcal{L}_{\mathrm{BC/IC}} + \lambda_d\,\mathcal{L}_{\mathrm{data}}. \]
+Derivatives are computed by automatic differentiation, so no mesh is needed. A plain PINN solves one problem instance; training <em>is</em> the solve, and for forward problems it is usually far slower than a classical solver at the same accuracy. Optimization is delicate (imbalanced loss terms, spectral bias, violated causality in time), and high-Reynolds-number flows are hard. The strongest use case is inverse problems and data assimilation, where sparse measurements and the equations are combined, for example to infer pressure or viscosity from velocity data.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>M. Raissi, P. Perdikaris, G. E. Karniadakis, <a href="https://arxiv.org/abs/1711.10561" target="_blank" rel="noreferrer"><cite>Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations</cite></a>, J. Comput. Phys., 2019.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>PINN for 1D Burgers (forward) and for identifying the viscosity from sparse data (inverse).</p></div>
+</article>
+
+<article class="method" id="pideeponet">
+<h3><span class="num">6.2</span> Physics-informed operator learning</h3>
+<p>Adding the residual loss to an operator network turns it into a parametric solver: physics-informed DeepONets can be trained with few or no solution data, using the PDE residual at collocation points for many input functions. The same idea applied to FNO gives physics-informed neural operators. The residual term acts as a regularizer that reduces the amount of simulation data needed, at the price of the optimization difficulties of PINNs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. Wang, H. Wang, P. Perdikaris, <a href="https://arxiv.org/abs/2103.10974" target="_blank" rel="noreferrer"><cite>Learning the solution operator of parametric partial differential equations with physics-informed DeepONets</cite></a>, Science Advances, 2021.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Physics-informed DeepONet for a 1D diffusion–reaction operator trained without solution data.</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="generative">
+<p class="eyebrow">Chapter 7</p>
+<h2>7. Generative models and foundation models</h2>
+<p>Recent work uses diffusion models to capture uncertainty and small scales, and large pretrained models to transfer across PDEs.</p>
+
+<article class="method" id="pderefiner">
+<h3><span class="num">7.1</span> PDE-Refiner</h3>
+<p>Neural time-steppers trained with a mean-squared-error loss tend to neglect low-amplitude, high-frequency components of the solution, and these errors grow during long rollouts. PDE-Refiner follows each one-step prediction with a few denoising-style refinement steps that progressively recover those components, which substantially improves long-rollout accuracy and stability on chaotic test problems.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>P. Lippe, B. S. Veeling, P. Perdikaris, R. E. Turner, J. Brandstetter, <a href="https://arxiv.org/abs/2308.05732" target="_blank" rel="noreferrer"><cite>PDE-Refiner: Achieving accurate long rollouts with neural PDE solvers</cite></a>, NeurIPS, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Spectrum of one-step errors with and without refinement on Kuramoto–Sivashinsky.</p></div>
+</article>
+
+<article class="method" id="acdm">
+<h3><span class="num">7.2</span> Autoregressive conditional diffusion for turbulent flows</h3>
+<p>Instead of predicting the next state, learn its conditional distribution \(p(u_{k+1}\mid u_k,\mu)\) with a diffusion model and sample autoregressively. This work benchmarks such models against deterministic surrogates on several flow problems, including turbulent cases, and finds better long-horizon behaviour and physically meaningful sample spread, at a much higher cost per step because each step requires many denoising iterations.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>G. Kohl, L.-W. Chen, N. Thuerey, <a href="https://arxiv.org/abs/2309.01745" target="_blank" rel="noreferrer"><cite>Benchmarking autoregressive conditional diffusion models for turbulent flow simulation</cite></a>, arXiv, 2023.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Conditional diffusion vs deterministic U-Net for a 2D wake: ensemble spread and long-time statistics.</p></div>
+</article>
+
+<article class="method" id="gencast">
+<h3><span class="num">7.3</span> Diffusion-based ensemble forecasting at scale</h3>
+<p>GenCast applies conditional diffusion to global medium-range weather forecasting and produces probabilistic ensembles that compete with operational ensemble systems. It shows that generative surrogates can work at very large scale for a chaotic fluid system, given enough data (decades of reanalysis).</p>
+<div class="refs"><span class="label">Papers</span><ul><li>I. Price et al., <a href="https://arxiv.org/abs/2312.15796" target="_blank" rel="noreferrer"><cite>GenCast: Diffusion-based ensemble forecasting for medium-range weather</cite></a>, arXiv, 2023.</li></ul></div>
+</article>
+
+<article class="method" id="poseidon">
+<h3><span class="num">7.4</span> PDE foundation models: Poseidon</h3>
+<p>Poseidon pretrains a multiscale operator transformer on a large and diverse set of 2D fluid-flow trajectories and then fine-tunes it on downstream PDEs with few samples. Time enters as a lead-time input, and training uses all pairs of time steps in each trajectory to get more out of the data. The paper reports strong sample efficiency on downstream tasks, including some physics not present in pretraining. Open questions are transfer to 3D, to complex geometries, and to the small-data engineering problems typical of reduced-order modeling.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>M. Herde, B. Raonić, T. Rohner, R. Käppeli, R. Molinaro, E. de Bézenac, S. Mishra, <a href="https://arxiv.org/abs/2405.19101" target="_blank" rel="noreferrer"><cite>Poseidon: Efficient foundation models for PDEs</cite></a>, NeurIPS, 2024.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Fine-tune a pretrained checkpoint on a small dataset and compare with training from scratch.</p></div>
+</article>
+
+</section>
+
+<section class="chapter" id="benchmarks">
+<p class="eyebrow">Chapter 8</p>
+<h2>8. Benchmarks and methodology</h2>
+<p>How methods are compared matters as much as the methods themselves.</p>
+
+<article class="method" id="pdebench">
+<h3><span class="num">8.1</span> Benchmark suites</h3>
+<p>PDEBench collects many 1D, 2D and 3D problems, including advection, Burgers, diffusion–reaction, Darcy flow, shallow water and compressible and incompressible Navier–Stokes, with baseline models and forward and inverse tasks. Shared suites made comparisons easier, but they are mostly initial-value or steady problems on simple domains. ROM-style settings with time-dependent inputs, few training simulations and complex geometry are under-represented. More recent fluid-specific benchmarks (FlowBench, CFDBench and others) are listed for a later update.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>M. Takamoto et al., <a href="https://arxiv.org/abs/2210.07182" target="_blank" rel="noreferrer"><cite>PDEBench: An extensive benchmark for scientific machine learning</cite></a>, NeurIPS Datasets and Benchmarks, 2022.</li></ul></div>
+</article>
+
+<article class="method" id="weak-baselines">
+<h3><span class="num">8.2</span> Weak baselines and reporting bias</h3>
+<p>McGreivy and Hakim reviewed machine-learning papers on fluid-related PDEs and found that many reported speedups compare against weak baselines: numerical solvers that are not state of the art, or comparisons not made at equal accuracy. Combined with the tendency to publish only positive results, this leads to overly optimistic conclusions. Their recommendation is to compare against strong solvers at equal accuracy or equal runtime. The same standard should apply when neural ROMs are compared with well-tuned projection ROMs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>N. McGreivy, A. Hakim, <a href="https://arxiv.org/abs/2407.07218" target="_blank" rel="noreferrer"><cite>Weak baselines and reporting biases lead to overoptimism in machine learning for fluid-related partial differential equations</cite></a>, Nature Machine Intelligence, 2024.</li></ul></div>
+</article>
+
+</section>
+
+<section class="chapter" id="directions">
+<p class="eyebrow">Chapter 9</p>
+<h2>9. Open problems and research directions</h2>
+<p>A first list of gaps that stand out when the methods above are put side by side. None of these has yet been checked against the most recent literature.</p>
+
+<article class="method" id="gap-geometry-dynamics">
+<h3><span class="num">9.1</span> Geometry and dynamics are handled by different methods</h3>
+<p>Methods that handle varying geometry (GINO, GNOT, Transolver, CORAL, MeshGraphNets) are either steady or step the full field autoregressively. Methods with compact latent dynamics (LDNets, LaSDI, Koopman autoencoders, LED) assume a fixed geometry. A natural direction is <strong>geometry-conditioned latent dynamics</strong>: give an LDNet's reconstruction and dynamics networks a geometry code (e.g. from a signed distance function encoder) and test on unsteady flows past families of shapes under time-varying inflow.</p>
+</article>
+
+<article class="method" id="gap-assimilation">
+<h3><span class="num">9.2</span> Data assimilation for encoder-free latent models</h3>
+<p>LDNets cannot correct their latent state from new measurements. Because the latent state is small, ensemble Kalman or particle filters in latent space, with the reconstruction network as observation operator at sensor locations, should be cheap and could turn LDNets into practical digital twins.</p>
+</article>
+
+<article class="method" id="gap-certification">
+<h3><span class="num">9.3</span> Error estimates for learned surrogates</h3>
+<p>Certified reduced basis methods come with a posteriori error bounds; almost no neural surrogate does. When the decoder is differentiable in space (neural fields, LDNets), the PDE residual of the prediction can be computed cheaply and used as an error indicator, possibly calibrated with conformal prediction on held-out solves.</p>
+</article>
+
+<article class="method" id="gap-chaos">
+<h3><span class="num">9.4</span> Uncertainty and chaotic flows</h3>
+<p>A small deterministic latent ODE cannot represent turbulence, while generative full-field models are expensive. Stochastic or generative dynamics in a compact latent space (latent SDEs, latent diffusion) combined with a neural-field decoder could give cheap ensembles with the right statistics.</p>
+</article>
+
+<article class="method" id="gap-structure">
+<h3><span class="num">9.5</span> Structure-preserving latent dynamics</h3>
+<p>Constraining the learned latent dynamics to be stable, dissipative or port-Hamiltonian could make long rollouts under unseen input signals reliable, at some cost in expressiveness for genuinely unstable regimes such as the onset of vortex shedding.</p>
+</article>
+
+<article class="method" id="gap-benchmark">
+<h3><span class="num">9.6</span> Fair comparisons across the two traditions</h3>
+<p>Hardly anyone compares projection ROMs, neural ROMs and neural operators on the same data, with the same budget and against strong solvers. A small, careful benchmark with time-dependent inputs (inflow, actuation, moving boundaries) and classical baselines included would be valuable on its own and would anchor the directions above.</p>
+</article>
+
+</section>
+
+<section class="chapter" id="references">
+<p class="eyebrow">References</p>
+<h2>References</h2>
+<ol class="biblio"><li>Z. Li et al., <a href="https://arxiv.org/abs/2309.00583" target="_blank" rel="noreferrer"><cite>Geometry-Informed Neural Operator for large-scale 3D PDEs</cite></a>, NeurIPS, 2023.</li><li>Z. Hao et al., <a href="https://arxiv.org/abs/2302.14376" target="_blank" rel="noreferrer"><cite>GNOT: A General Neural Operator Transformer for operator learning</cite></a>, ICML, 2023.</li><li>L. Serrano et al., <a href="https://arxiv.org/abs/2306.07266" target="_blank" rel="noreferrer"><cite>Operator learning with neural fields: Tackling PDEs on general geometries</cite></a>, NeurIPS, 2023.</li><li>I. Price et al., <a href="https://arxiv.org/abs/2312.15796" target="_blank" rel="noreferrer"><cite>GenCast: Diffusion-based ensemble forecasting for medium-range weather</cite></a>, arXiv, 2023.</li><li>M. Takamoto et al., <a href="https://arxiv.org/abs/2210.07182" target="_blank" rel="noreferrer"><cite>PDEBench: An extensive benchmark for scientific machine learning</cite></a>, NeurIPS Datasets and Benchmarks, 2022.</li><li>J. Brandstetter, D. Worrall, M. Welling, <a href="https://arxiv.org/abs/2202.03376" target="_blank" rel="noreferrer"><cite>Message passing neural PDE solvers</cite></a>, ICLR, 2022.</li><li>S. L. Brunton, J. L. Proctor, J. N. Kutz, <a href="https://arxiv.org/abs/1509.03580" target="_blank" rel="noreferrer"><cite>Discovering governing equations from data by sparse identification of nonlinear dynamical systems</cite></a>, PNAS, 2016.</li><li>S. Cao, <a href="https://arxiv.org/abs/2105.14995" target="_blank" rel="noreferrer"><cite>Choose a Transformer: Fourier or Galerkin</cite></a>, NeurIPS, 2021.</li><li>S. Fresca, L. Dede&#x27;, A. Manzoni, <a href="https://arxiv.org/abs/2001.04001" target="_blank" rel="noreferrer"><cite>A comprehensive deep learning-based approach to reduced order modeling of nonlinear time-dependent parametrized PDEs</cite></a>, J. Sci. Comput., 2021.</li><li>S. Fresca, A. Manzoni, <a href="https://arxiv.org/abs/2101.11845" target="_blank" rel="noreferrer"><cite>POD-DL-ROM: enhancing deep learning-based reduced order models for nonlinear parametrized PDEs by proper orthogonal decomposition</cite></a>, Comput. Methods Appl. Mech. Eng., 2022.</li><li>W. D. Fries, X. He, Y. Choi, <a href="https://arxiv.org/abs/2203.02076" target="_blank" rel="noreferrer"><cite>LaSDI: Parametric latent space dynamics identification</cite></a>, Comput. Methods Appl. Mech. Eng., 2022.</li><li>M. Herde, B. Raonić, T. Rohner, R. Käppeli, R. Molinaro, E. de Bézenac, S. Mishra, <a href="https://arxiv.org/abs/2405.19101" target="_blank" rel="noreferrer"><cite>Poseidon: Efficient foundation models for PDEs</cite></a>, NeurIPS, 2024.</li><li>J. S. Hesthaven, G. Rozza, B. Stamm, <a href="https://doi.org/10.1007/978-3-319-22470-1" target="_blank" rel="noreferrer"><cite>Certified Reduced Basis Methods for Parametrized Partial Differential Equations</cite></a>, SpringerBriefs in Mathematics, 2016.</li><li>J. S. Hesthaven, S. Ubbiali, <a href="https://infoscience.epfl.ch/record/232022" target="_blank" rel="noreferrer"><cite>Non-intrusive reduced order modeling of nonlinear problems using neural networks</cite></a>, J. Comput. Phys., 2018.</li><li>D. Kochkov, J. A. Smith, A. Alieva, Q. Wang, M. P. Brenner, S. Hoyer, <a href="https://arxiv.org/abs/2102.01010" target="_blank" rel="noreferrer"><cite>Machine learning–accelerated computational fluid dynamics</cite></a>, PNAS, 2021.</li><li>G. Kohl, L.-W. Chen, N. Thuerey, <a href="https://arxiv.org/abs/2309.01745" target="_blank" rel="noreferrer"><cite>Benchmarking autoregressive conditional diffusion models for turbulent flow simulation</cite></a>, arXiv, 2023.</li><li>N. Kovachki, Z. Li, B. Liu, K. Azizzadenesheli, K. Bhattacharya, A. Stuart, A. Anandkumar, <a href="https://arxiv.org/abs/2108.08481" target="_blank" rel="noreferrer"><cite>Neural Operator: Learning maps between function spaces</cite></a>, JMLR, 2023.</li><li>K. Lee, K. T. Carlberg, <a href="https://arxiv.org/abs/1812.08373" target="_blank" rel="noreferrer"><cite>Model reduction of dynamical systems on nonlinear manifolds using deep convolutional autoencoders</cite></a>, J. Comput. Phys., 2020.</li><li>Z. Li, N. Kovachki, K. Azizzadenesheli, B. Liu, K. Bhattacharya, A. Stuart, A. Anandkumar, <a href="https://arxiv.org/abs/2010.08895" target="_blank" rel="noreferrer"><cite>Fourier Neural Operator for parametric partial differential equations</cite></a>, ICLR, 2021.</li><li>Z. Li, D. Z. Huang, B. Liu, A. Anandkumar, <a href="https://arxiv.org/abs/2207.05209" target="_blank" rel="noreferrer"><cite>Fourier Neural Operator with learned deformations for PDEs on general geometries</cite></a>, JMLR, 2023.</li><li>P. Lippe, B. S. Veeling, P. Perdikaris, R. E. Turner, J. Brandstetter, <a href="https://arxiv.org/abs/2308.05732" target="_blank" rel="noreferrer"><cite>PDE-Refiner: Achieving accurate long rollouts with neural PDE solvers</cite></a>, NeurIPS, 2023.</li><li>L. Lu, P. Jin, G. Pang, Z. Zhang, G. E. Karniadakis, <a href="https://arxiv.org/abs/1910.03193" target="_blank" rel="noreferrer"><cite>Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators</cite></a>, Nature Machine Intelligence, 2021.</li><li>B. Lusch, J. N. Kutz, S. L. Brunton, <a href="https://arxiv.org/abs/1712.09707" target="_blank" rel="noreferrer"><cite>Deep learning for universal linear embeddings of nonlinear dynamics</cite></a>, Nature Communications, 2018.</li><li>N. McGreivy, A. Hakim, <a href="https://arxiv.org/abs/2407.07218" target="_blank" rel="noreferrer"><cite>Weak baselines and reporting biases lead to overoptimism in machine learning for fluid-related partial differential equations</cite></a>, Nature Machine Intelligence, 2024.</li><li>B. Peherstorfer, K. Willcox, <a href="https://kiwi.oden.utexas.edu/papers/Non-intrusive-model-reduction-Peherstorfer-Willcox.pdf" target="_blank" rel="noreferrer"><cite>Data-driven operator inference for nonintrusive projection-based model reduction</cite></a>, Comput. Methods Appl. Mech. Eng., 2016.</li><li>T. Pfaff, M. Fortunato, A. Sanchez-Gonzalez, P. W. Battaglia, <a href="https://arxiv.org/abs/2010.03409" target="_blank" rel="noreferrer"><cite>Learning mesh-based simulation with graph networks</cite></a>, ICLR, 2021.</li><li>F. Pichi, B. Moya, J. S. Hesthaven, <a href="https://arxiv.org/abs/2305.08573" target="_blank" rel="noreferrer"><cite>A graph convolutional autoencoder approach to model order reduction for parametrized PDEs</cite></a>, J. Comput. Phys., 2024.</li><li>M. Raissi, P. Perdikaris, G. E. Karniadakis, <a href="https://arxiv.org/abs/1711.10561" target="_blank" rel="noreferrer"><cite>Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations</cite></a>, J. Comput. Phys., 2019.</li><li>B. Raonić, R. Molinaro, T. De Ryck, T. Rohner, F. Bartolucci, R. Alaifari, S. Mishra, E. de Bézenac, <a href="https://arxiv.org/abs/2302.01178" target="_blank" rel="noreferrer"><cite>Convolutional Neural Operators for robust and accurate learning of PDEs</cite></a>, NeurIPS, 2023.</li><li>F. Regazzoni, S. Pagani, M. Salvador, L. Dede&#x27;, A. Quarteroni, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11258335" target="_blank" rel="noreferrer"><cite>Learning the intrinsic dynamics of spatio-temporal processes through Latent Dynamics Networks</cite></a>, Nature Communications, 2024.</li><li>P. R. Vlachas, G. Arampatzis, C. Uhler, P. Koumoutsakos, <a href="https://arxiv.org/abs/2006.13431" target="_blank" rel="noreferrer"><cite>Multiscale simulations of complex systems by learning their effective dynamics</cite></a>, Nature Machine Intelligence, 2022.</li><li>S. Wang, H. Wang, P. Perdikaris, <a href="https://arxiv.org/abs/2103.10974" target="_blank" rel="noreferrer"><cite>Learning the solution operator of parametric partial differential equations with physics-informed DeepONets</cite></a>, Science Advances, 2021.</li><li>H. Wu, H. Luo, H. Wang, J. Wang, M. Long, <a href="https://arxiv.org/abs/2402.02366" target="_blank" rel="noreferrer"><cite>Transolver: A fast Transformer solver for PDEs on general geometries</cite></a>, ICML, 2024.</li><li>Y. Yin, M. Kirchmeyer, J.-Y. Franceschi, A. Rakotomamonjy, P. Gallinari, <a href="https://arxiv.org/abs/2209.14855" target="_blank" rel="noreferrer"><cite>Continuous PDE dynamics forecasting with implicit neural representations</cite></a>, ICLR, 2023.</li></ol>
+</section>
+
+      <p style="margin-top: 2.5rem;"><a href="./research.html">← Back to research</a></p>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="max-width:1180px">© 2026 Yerbol Palzhanov</div>
+  </footer>
+  <script>
+    (function () {
+      var toc = document.getElementById('toc');
+      function syncToc() { if (window.innerWidth <= 900) toc.removeAttribute('open'); else toc.setAttribute('open', ''); }
+      syncToc(); window.addEventListener('resize', syncToc);
+      var links = Array.prototype.slice.call(document.querySelectorAll('.docs-nav a'));
+      var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+      function onScroll() {
+        var y = window.scrollY + 120, current = -1;
+        targets.forEach(function (t, i) { if (t && t.offsetTop <= y) current = i; });
+        links.forEach(function (a, i) { a.classList.toggle('active', i === current); });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    })();
+  </script>
+</body>
+</html>
