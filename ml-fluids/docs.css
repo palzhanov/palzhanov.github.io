@@ -56,3 +56,7 @@
 .pager a { display: block; max-width: 48%; }
 .pager .next { margin-left: auto; text-align: right; }
 .pager small { display: block; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.demo.ready { background: #e9f3ec; border-color: #c7dfcf; }
+.demo-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem !important; }
+.demo-links a { padding: 0.25rem 0.7rem; border: 1px solid var(--link); border-radius: 999px; font-weight: 600; font-size: 0.85rem; }
+.demo-links a:hover { background: var(--link); color: #fff; }
