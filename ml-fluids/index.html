@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview | Machine Learning for Fluid Dynamics | Yerbol Palzhanov</title>
+  <meta name="description" content="A chapter-by-chapter guide to reduced-order models, latent dynamics, neural operators and other machine-learning methods for fluid dynamics and parametrized PDEs.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <link rel="stylesheet" href="./docs.css">
+</head>
+<body>
+  <header class="site-header docs-header">
+    <div class="container navbar" style="max-width:1180px">
+      <div class="brand-wrap">
+        <img src="../files/photo.jpg" alt="Yerbol Palzhanov" class="profile-photo">
+        <div class="brand-text">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title"><a href="../research.html">Research</a> / <a href="index.html">Machine learning for fluid dynamics</a></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="docs-layout">
+    <nav class="docs-nav" aria-label="Contents">
+      <details open id="toc">
+        <summary class="nav-toggle">Contents</summary>
+        <div class="nav-title">Contents</div>
+        <ul>
+<li class="current"><a href="index.html"><span class="num">1</span> Overview</a><ul><li><a href="index.html#why-hard"><span class="num">1.1</span> Why fluid flows are hard to compute</a></li><li><a href="index.html#problem"><span class="num">1.2</span> The many-query and real-time problem</a></li><li><a href="index.html#roles"><span class="num">1.3</span> Where machine learning enters</a></li><li><a href="index.html#history"><span class="num">1.4</span> A short history</a></li><li><a href="index.html#objects"><span class="num">1.5</span> What gets learned</a></li><li><a href="index.html#criteria"><span class="num">1.6</span> What to ask of a method</a></li><li><a href="index.html#traditions"><span class="num">1.7</span> Two research traditions</a></li><li><a href="index.html#howto"><span class="num">1.8</span> How to read these notes</a></li></ul></li>
+<li><a href="02-fundamentals.html"><span class="num">2</span> Fundamental methods</a><ul><li><a href="02-fundamentals.html#pod-galerkin"><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</a></li><li><a href="02-fundamentals.html#rb"><span class="num">2.2</span> Reduced basis methods and certified error bounds</a></li><li><a href="02-fundamentals.html#opinf"><span class="num">2.3</span> Operator inference</a></li><li><a href="02-fundamentals.html#sindy"><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</a></li><li><a href="02-fundamentals.html#podnn"><span class="num">2.5</span> POD with neural network regression (POD-NN)</a></li></ul></li>
+<li><a href="03-neural-roms.html"><span class="num">3</span> Neural reduced-order models and latent dynamics</a><ul><li><a href="03-neural-roms.html#cae"><span class="num">3.1</span> Nonlinear-manifold ROMs with autoencoders</a></li><li><a href="03-neural-roms.html#dlrom"><span class="num">3.2</span> DL-ROM and POD-DL-ROM</a></li><li><a href="03-neural-roms.html#gcarom"><span class="num">3.3</span> Graph convolutional autoencoder ROMs (GCA-ROM)</a></li><li><a href="03-neural-roms.html#koopman"><span class="num">3.4</span> Koopman autoencoders</a></li><li><a href="03-neural-roms.html#lasdi"><span class="num">3.5</span> Latent space dynamics identification (LaSDI)</a></li><li><a href="03-neural-roms.html#led"><span class="num">3.6</span> Learning effective dynamics (LED)</a></li><li><a href="03-neural-roms.html#ldnet"><span class="num">3.7</span> Latent Dynamics Networks (LDNets)</a></li></ul></li>
+<li><a href="04-operators.html"><span class="num">4</span> Operator learning</a><ul><li><a href="04-operators.html#deeponet"><span class="num">4.1</span> DeepONet</a></li><li><a href="04-operators.html#fno"><span class="num">4.2</span> Fourier Neural Operator and the neural operator framework</a></li><li><a href="04-operators.html#geometry"><span class="num">4.3</span> Neural operators on general geometries: Geo-FNO and GINO</a></li><li><a href="04-operators.html#cno"><span class="num">4.4</span> Convolutional Neural Operators (CNO)</a></li><li><a href="04-operators.html#transformers"><span class="num">4.5</span> Transformer operators: Galerkin Transformer, GNOT, Transolver</a></li><li><a href="04-operators.html#neural-fields"><span class="num">4.6</span> Neural-field operators: DINo and CORAL</a></li></ul></li>
+<li><a href="05-mesh-hybrid.html"><span class="num">5</span> Mesh-based learned simulators and hybrid solvers</a><ul><li><a href="05-mesh-hybrid.html#meshgraphnets"><span class="num">5.1</span> MeshGraphNets</a></li><li><a href="05-mesh-hybrid.html#mppde"><span class="num">5.2</span> Message passing neural PDE solvers</a></li><li><a href="05-mesh-hybrid.html#hybrid"><span class="num">5.3</span> Learned corrections inside a numerical solver</a></li></ul></li>
+<li><a href="06-physics-informed.html"><span class="num">6</span> Physics-informed learning</a><ul><li><a href="06-physics-informed.html#pinns"><span class="num">6.1</span> Physics-informed neural networks (PINNs)</a></li><li><a href="06-physics-informed.html#pideeponet"><span class="num">6.2</span> Physics-informed operator learning</a></li></ul></li>
+<li><a href="07-generative.html"><span class="num">7</span> Generative models and foundation models</a><ul><li><a href="07-generative.html#pderefiner"><span class="num">7.1</span> PDE-Refiner</a></li><li><a href="07-generative.html#acdm"><span class="num">7.2</span> Autoregressive conditional diffusion for turbulent flows</a></li><li><a href="07-generative.html#gencast"><span class="num">7.3</span> Diffusion-based ensemble forecasting at scale</a></li><li><a href="07-generative.html#poseidon"><span class="num">7.4</span> PDE foundation models: Poseidon</a></li></ul></li>
+<li><a href="08-benchmarks.html"><span class="num">8</span> Benchmarks and methodology</a><ul><li><a href="08-benchmarks.html#pdebench"><span class="num">8.1</span> Benchmark suites</a></li><li><a href="08-benchmarks.html#weak-baselines"><span class="num">8.2</span> Weak baselines and reporting bias</a></li></ul></li>
+<li><a href="09-directions.html"><span class="num">9</span> Open problems and research directions</a><ul><li><a href="09-directions.html#gap-geometry-dynamics"><span class="num">9.1</span> Geometry and dynamics are handled by different methods</a></li><li><a href="09-directions.html#gap-assimilation"><span class="num">9.2</span> Data assimilation for encoder-free latent models</a></li><li><a href="09-directions.html#gap-certification"><span class="num">9.3</span> Error estimates for learned surrogates</a></li><li><a href="09-directions.html#gap-chaos"><span class="num">9.4</span> Uncertainty and chaotic flows</a></li><li><a href="09-directions.html#gap-structure"><span class="num">9.5</span> Structure-preserving latent dynamics</a></li><li><a href="09-directions.html#gap-benchmark"><span class="num">9.6</span> Fair comparisons across the two traditions</a></li></ul></li>
+<li><a href="references.html">References</a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <main class="docs-main">
+      <h1>Machine learning for fluid dynamics</h1>
+<p class="lede">From projection-based reduced-order models to latent dynamics networks, neural operators and generative surrogates: the main ideas, the key papers, and open problems.</p>
+<p class="draft-note"><strong>Living document, first draft (November 2026).</strong> Summaries are written from the papers' main ideas; details marked <span class="verify">to verify</span> still need checking against the originals. Demo notebooks will be added section by section.</p>
+
+<section class="chapter" id="overview">
+<p class="eyebrow">Chapter 1</p>
+<h2>1. Overview</h2>
+<p>Fluid dynamics was one of the first fields to be transformed by scientific computing, and it is now one of the most active testing grounds for machine learning in science. These notes map the methods that sit between the two: classical reduced-order models, the neural surrogates that grew out of them, and the newer operator-learning, graph-based and generative approaches. This first chapter sets the stage: why fluid simulation is hard, where learning can help, how the field got here, and what questions to ask of any method in the later chapters.</p>
+
+<article class="method" id="why-hard">
+<h3><span class="num">1.1</span> Why fluid flows are hard to compute</h3>
+<p>Most flows of interest are governed by the incompressible Navier–Stokes equations,
+\[ \partial_t \mathbf u + (\mathbf u\cdot\nabla)\mathbf u - \nu\Delta \mathbf u + \nabla p = \mathbf f, \qquad \nabla\cdot\mathbf u = 0, \]
+or by their compressible, multiphase or reacting relatives. Three features make them expensive to solve.</p>
+<ul>
+<li><strong>Nonlinearity and multiscale behaviour.</strong> The advection term transfers energy between scales. At high Reynolds number \(\mathrm{Re}=UL/\nu\) the flow becomes turbulent, and the range of active scales grows with \(\mathrm{Re}\). Classical Kolmogorov scaling estimates that resolving all scales of three-dimensional turbulence (direct numerical simulation) needs on the order of \(\mathrm{Re}^{9/4}\) grid points, which is out of reach for most engineering flows. Practical simulations therefore model the unresolved scales (RANS, LES), and those closure models are a major source of error.</li>
+<li><strong>Transport.</strong> Vortices, fronts, shocks and wakes move through the domain. Features that travel are poorly described by a fixed set of global modes, a fact that limits linear reduced-order models (<a href="02-fundamentals.html">Chapter 2</a>) and motivates much of the nonlinear work in Chapters 3 and 4.</li>
+<li><strong>Geometry and coupling.</strong> Real problems involve complex and sometimes moving domains, thin boundary layers that need fine meshes, and coupling to structures, heat transfer or chemistry.</li>
+</ul>
+<p>A single high-fidelity simulation can therefore take hours to weeks on a cluster. That is acceptable for one design, but not for the tasks below.</p>
+</article>
+
+<article class="method" id="problem">
+<h3><span class="num">1.2</span> The many-query and real-time problem</h3>
+<p>Many tasks require solving the same equations many times, or very fast: design optimization, uncertainty quantification, optimal and feedback control, inverse problems, and digital twins that must keep pace with a physical system. A convenient abstract setting is a parametrized, time-dependent problem
+\[ \partial_t u + \mathcal{N}(u;\mu) = f(t), \qquad x\in\Omega(\mu),\ t\in(0,T], \]
+where \(\mu\) collects physical or geometric parameters (Reynolds number, shape, material properties) and \(f(t)\) is a time-dependent input such as an inflow profile or an actuation signal. After discretization the state has \(\mathcal{N}_h\) degrees of freedom, often \(10^5\) to \(10^8\). A <em>surrogate</em> replaces the full solver with something much cheaper to evaluate, built from a limited number of full solves. The central trade-off is between the <em>offline</em> cost of generating data and building the surrogate, and the <em>online</em> cost and accuracy of using it.</p>
+</article>
+
+<article class="method" id="roles">
+<h3><span class="num">1.3</span> Where machine learning enters</h3>
+<p>Machine learning is used in fluid dynamics in several distinct roles, which are easy to conflate:</p>
+<ul>
+<li><strong>Surrogates</strong> that replace the solver entirely: reduced-order models, neural operators, learned time-steppers. This is the main subject of these notes.</li>
+<li><strong>Closures and subgrid models</strong> that replace an uncertain part of a classical model, for example turbulence models in RANS or LES, while the rest of the solver is kept.</li>
+<li><strong>Solver acceleration</strong>: learned corrections that let a coarse simulation behave like a fine one, learned preconditioners, or better initial guesses.</li>
+<li><strong>Flow reconstruction and data assimilation</strong>: estimating full flow fields from sparse or noisy measurements, such as velocity probes, pressure taps or particle image velocimetry.</li>
+<li><strong>Model discovery</strong>: identifying governing equations or low-dimensional dynamics directly from data.</li>
+<li><strong>Control</strong>: learning actuation strategies, often on top of a reduced or learned model of the flow.</li>
+</ul>
+<p>The same architecture can appear in several roles, and a method that works well in one role may be a poor choice in another. A neural network that predicts a flow field well on average may still be unusable as a closure inside a solver, where small errors feed back and accumulate.</p>
+</article>
+
+<article class="method" id="history">
+<h3><span class="num">1.4</span> A short history</h3>
+<p>Data-driven ideas in fluid mechanics are much older than deep learning.</p>
+<ul>
+<li><strong>Proper orthogonal decomposition</strong> was introduced to turbulence research by Lumley in the 1960s to extract coherent structures, and Sirovich's <em>method of snapshots</em> (1987) made it practical for large simulations. POD-Galerkin models of the wall layer and of wakes followed.</li>
+<li><strong>Reduced basis methods</strong> developed through the 2000s and 2010s into a mature theory with greedy sampling and certified error bounds for parametrized PDEs.</li>
+<li><strong>Dynamic mode decomposition</strong> (Schmid, 2010) and its connection to <strong>Koopman operator theory</strong> gave linear, data-driven descriptions of nonlinear flows; <strong>SINDy</strong> (2016) brought sparse regression for equation discovery.</li>
+<li>From the mid-2010s, <strong>deep learning</strong> entered the field: neural networks for turbulence closures, convolutional autoencoders for nonlinear model reduction, and <strong>physics-informed neural networks</strong> (2017 to 2019) that put the equations into the loss.</li>
+<li>Around 2019 to 2021, <strong>operator learning</strong> (DeepONet, Fourier Neural Operator) and <strong>graph-based simulators</strong> (MeshGraphNets) reframed the goal as learning solution operators and time-steppers that work across resolutions and meshes.</li>
+<li>Since about 2023, <strong>generative models</strong> (diffusion for turbulent flows and weather) and <strong>foundation models</strong> pretrained on many PDEs have pushed towards probabilistic prediction and transfer across problems, while <strong>latent dynamics networks</strong> and related work revisit the reduced-order modeling questions with modern tools.</li>
+</ul>
+<p>Several review articles give broader overviews: Brunton, Noack and Koumoutsakos on machine learning for fluid mechanics; Duraisamy, Iaccarino and Xiao on data-driven turbulence modeling; and Vinuesa and Brunton on machine learning for computational fluid dynamics.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>L. Sirovich, <a href="https://www.ams.org/qam/1987-45-03/" target="_blank" rel="noreferrer"><cite>Turbulence and the dynamics of coherent structures. I. Coherent structures</cite></a>, Quarterly of Applied Mathematics, 1987.</li><li>P. J. Schmid, <a href="https://hal-polytechnique.archives-ouvertes.fr/hal-01020654" target="_blank" rel="noreferrer"><cite>Dynamic mode decomposition of numerical and experimental data</cite></a>, J. Fluid Mech., 2010.</li><li>S. L. Brunton, B. R. Noack, P. Koumoutsakos, <a href="https://arxiv.org/abs/1905.11075" target="_blank" rel="noreferrer"><cite>Machine learning for fluid mechanics</cite></a>, Annual Review of Fluid Mechanics, 2020.</li><li>K. Duraisamy, G. Iaccarino, H. Xiao, <a href="https://arxiv.org/abs/1804.00183" target="_blank" rel="noreferrer"><cite>Turbulence modeling in the age of data</cite></a>, Annual Review of Fluid Mechanics, 2019.</li><li>R. Vinuesa, S. L. Brunton, <a href="https://arxiv.org/abs/2110.02085" target="_blank" rel="noreferrer"><cite>Enhancing computational fluid dynamics with machine learning</cite></a>, Nature Computational Science, 2022.</li></ul></div>
+</article>
+
+<article class="method" id="objects">
+<h3><span class="num">1.5</span> What gets learned</h3>
+<p>Most surrogate methods in these notes approximate one of four objects. Asking which one a method learns is the fastest way to see what it can and cannot generalize over.</p>
+<table class="doc-table">
+<thead><tr><th>Object</th><th>Map</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td>Parameter-to-solution map</td><td>\((\mu,t)\mapsto u_h(t;\mu)\) on a fixed mesh</td><td>POD-NN, DL-ROM, POD-DL-ROM</td></tr>
+<tr><td>Operator between function spaces</td><td>\(a(\cdot)\mapsto u(\cdot)\)</td><td>DeepONet, FNO, CNO, GINO, Transolver</td></tr>
+<tr><td>Time-stepper (flow map)</td><td>\(u(t)\mapsto u(t+\Delta t)\)</td><td>MeshGraphNets, MP-PDE, PDE-Refiner</td></tr>
+<tr><td>Reduced (latent) dynamics</td><td>\(\dot z = F(z, f(t))\), then decode</td><td>Galerkin ROMs, LDNet, Koopman AE, LaSDI</td></tr>
+</tbody></table>
+<p>Generative models learn a <em>distribution</em> over one of these instead of a single prediction. Physics-informed training is not a separate object: it is a loss term that can be added to almost any architecture.</p>
+</article>
+
+<article class="method" id="criteria">
+<h3><span class="num">1.6</span> What to ask of a method</h3>
+<p>Papers in this area report very different things, so it helps to read each one with the same questions in mind.</p>
+<ul>
+<li><strong>Generalization:</strong> across what, exactly? Parameters inside the training range, new geometries, longer time horizons, new input signals, finer meshes, different equations?</li>
+<li><strong>Cost accounting:</strong> how many high-fidelity simulations were needed, how long did training take, and how does online cost compare with a strong classical solver <em>at the same accuracy</em>?</li>
+<li><strong>Stability over time:</strong> do long rollouts stay accurate, or at least physically plausible?</li>
+<li><strong>Physical consistency:</strong> are conservation laws, boundary conditions, symmetries and incompressibility respected?</li>
+<li><strong>Error control:</strong> does the method say when it is wrong, or only report average test error?</li>
+<li><strong>Inductive bias:</strong> what structure is built in (linear subspaces, locality, Fourier modes, latent dynamics, physics residuals), and does it match the flow?</li>
+</ul>
+<p><a href="08-benchmarks.html">Chapter 8</a> returns to these questions with evidence that many published comparisons fall short of them.</p>
+</article>
+
+<article class="method" id="traditions">
+<h3><span class="num">1.7</span> Two research traditions</h3>
+<p>The literature comes from two communities with different defaults, and much confusion comes from comparing results across them.</p>
+<ul>
+<li><strong>Numerical analysis and reduced-order modeling</strong> (e.g. the groups of Quarteroni, Rozza, Hesthaven, Manzoni, Willcox, Carlberg): few high-fidelity solves, fixed or parametrized geometry, offline/online splitting, emphasis on stability and error control. Benchmarks are specific engineering problems such as cavity flow, cylinder wakes or cardiac electrophysiology.</li>
+<li><strong>Machine learning and neural operators</strong> (e.g. the groups of Anandkumar, Karniadakis, Mishra, Welling, Thuerey): large training sets, generic benchmark suites, emphasis on resolution independence, geometry variation and scaling, and lately foundation models.</li>
+</ul>
+<p>Latent Dynamics Networks (<a href="03-neural-roms.html#ldnet">Section 3.7</a>) sit deliberately between the two, which is one reason they are a good lens for these notes.</p>
+</article>
+
+<article class="method" id="howto">
+<h3><span class="num">1.8</span> How to read these notes</h3>
+<p><a href="02-fundamentals.html">Chapter 2</a> covers the classical methods that every later chapter refers back to. Chapters 3 to 7 cover neural methods by family. <a href="08-benchmarks.html">Chapter 8</a> collects benchmarks and methodological critiques, and <a href="09-directions.html">Chapter 9</a> lists open problems. Each method section gives the idea, a key equation, strengths and limitations, the papers to read, and a planned demo notebook. Equations are schematic: notation is unified across sections and may differ from the original papers. Details marked <span class="verify">to verify</span> still need to be checked against the paper.</p>
+</article>
+
+</section>
+
+      <nav class="pager" aria-label="Chapters"><a class="next" href="02-fundamentals.html"><small>Next</small>2. Fundamental methods →</a></nav>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="max-width:1180px">© 2026 Yerbol Palzhanov</div>
+  </footer>
+  <script src="./docs.js"></script>
+</body>
+</html>

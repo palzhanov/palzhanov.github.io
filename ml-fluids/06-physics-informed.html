@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics-informed learning | Machine Learning for Fluid Dynamics | Yerbol Palzhanov</title>
+  <meta name="description" content="A chapter-by-chapter guide to reduced-order models, latent dynamics, neural operators and other machine-learning methods for fluid dynamics and parametrized PDEs.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <link rel="stylesheet" href="./docs.css">
+</head>
+<body>
+  <header class="site-header docs-header">
+    <div class="container navbar" style="max-width:1180px">
+      <div class="brand-wrap">
+        <img src="../files/photo.jpg" alt="Yerbol Palzhanov" class="profile-photo">
+        <div class="brand-text">
+          <span class="brand-name">Yerbol Palzhanov</span>
+          <span class="brand-title"><a href="../research.html">Research</a> / <a href="index.html">Machine learning for fluid dynamics</a></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="docs-layout">
+    <nav class="docs-nav" aria-label="Contents">
+      <details open id="toc">
+        <summary class="nav-toggle">Contents</summary>
+        <div class="nav-title">Contents</div>
+        <ul>
+<li><a href="index.html"><span class="num">1</span> Overview</a><ul><li><a href="index.html#why-hard"><span class="num">1.1</span> Why fluid flows are hard to compute</a></li><li><a href="index.html#problem"><span class="num">1.2</span> The many-query and real-time problem</a></li><li><a href="index.html#roles"><span class="num">1.3</span> Where machine learning enters</a></li><li><a href="index.html#history"><span class="num">1.4</span> A short history</a></li><li><a href="index.html#objects"><span class="num">1.5</span> What gets learned</a></li><li><a href="index.html#criteria"><span class="num">1.6</span> What to ask of a method</a></li><li><a href="index.html#traditions"><span class="num">1.7</span> Two research traditions</a></li><li><a href="index.html#howto"><span class="num">1.8</span> How to read these notes</a></li></ul></li>
+<li><a href="02-fundamentals.html"><span class="num">2</span> Fundamental methods</a><ul><li><a href="02-fundamentals.html#pod-galerkin"><span class="num">2.1</span> Proper orthogonal decomposition and Galerkin projection</a></li><li><a href="02-fundamentals.html#rb"><span class="num">2.2</span> Reduced basis methods and certified error bounds</a></li><li><a href="02-fundamentals.html#opinf"><span class="num">2.3</span> Operator inference</a></li><li><a href="02-fundamentals.html#sindy"><span class="num">2.4</span> Sparse identification of nonlinear dynamics (SINDy)</a></li><li><a href="02-fundamentals.html#podnn"><span class="num">2.5</span> POD with neural network regression (POD-NN)</a></li></ul></li>
+<li><a href="03-neural-roms.html"><span class="num">3</span> Neural reduced-order models and latent dynamics</a><ul><li><a href="03-neural-roms.html#cae"><span class="num">3.1</span> Nonlinear-manifold ROMs with autoencoders</a></li><li><a href="03-neural-roms.html#dlrom"><span class="num">3.2</span> DL-ROM and POD-DL-ROM</a></li><li><a href="03-neural-roms.html#gcarom"><span class="num">3.3</span> Graph convolutional autoencoder ROMs (GCA-ROM)</a></li><li><a href="03-neural-roms.html#koopman"><span class="num">3.4</span> Koopman autoencoders</a></li><li><a href="03-neural-roms.html#lasdi"><span class="num">3.5</span> Latent space dynamics identification (LaSDI)</a></li><li><a href="03-neural-roms.html#led"><span class="num">3.6</span> Learning effective dynamics (LED)</a></li><li><a href="03-neural-roms.html#ldnet"><span class="num">3.7</span> Latent Dynamics Networks (LDNets)</a></li></ul></li>
+<li><a href="04-operators.html"><span class="num">4</span> Operator learning</a><ul><li><a href="04-operators.html#deeponet"><span class="num">4.1</span> DeepONet</a></li><li><a href="04-operators.html#fno"><span class="num">4.2</span> Fourier Neural Operator and the neural operator framework</a></li><li><a href="04-operators.html#geometry"><span class="num">4.3</span> Neural operators on general geometries: Geo-FNO and GINO</a></li><li><a href="04-operators.html#cno"><span class="num">4.4</span> Convolutional Neural Operators (CNO)</a></li><li><a href="04-operators.html#transformers"><span class="num">4.5</span> Transformer operators: Galerkin Transformer, GNOT, Transolver</a></li><li><a href="04-operators.html#neural-fields"><span class="num">4.6</span> Neural-field operators: DINo and CORAL</a></li></ul></li>
+<li><a href="05-mesh-hybrid.html"><span class="num">5</span> Mesh-based learned simulators and hybrid solvers</a><ul><li><a href="05-mesh-hybrid.html#meshgraphnets"><span class="num">5.1</span> MeshGraphNets</a></li><li><a href="05-mesh-hybrid.html#mppde"><span class="num">5.2</span> Message passing neural PDE solvers</a></li><li><a href="05-mesh-hybrid.html#hybrid"><span class="num">5.3</span> Learned corrections inside a numerical solver</a></li></ul></li>
+<li class="current"><a href="06-physics-informed.html"><span class="num">6</span> Physics-informed learning</a><ul><li><a href="06-physics-informed.html#pinns"><span class="num">6.1</span> Physics-informed neural networks (PINNs)</a></li><li><a href="06-physics-informed.html#pideeponet"><span class="num">6.2</span> Physics-informed operator learning</a></li></ul></li>
+<li><a href="07-generative.html"><span class="num">7</span> Generative models and foundation models</a><ul><li><a href="07-generative.html#pderefiner"><span class="num">7.1</span> PDE-Refiner</a></li><li><a href="07-generative.html#acdm"><span class="num">7.2</span> Autoregressive conditional diffusion for turbulent flows</a></li><li><a href="07-generative.html#gencast"><span class="num">7.3</span> Diffusion-based ensemble forecasting at scale</a></li><li><a href="07-generative.html#poseidon"><span class="num">7.4</span> PDE foundation models: Poseidon</a></li></ul></li>
+<li><a href="08-benchmarks.html"><span class="num">8</span> Benchmarks and methodology</a><ul><li><a href="08-benchmarks.html#pdebench"><span class="num">8.1</span> Benchmark suites</a></li><li><a href="08-benchmarks.html#weak-baselines"><span class="num">8.2</span> Weak baselines and reporting bias</a></li></ul></li>
+<li><a href="09-directions.html"><span class="num">9</span> Open problems and research directions</a><ul><li><a href="09-directions.html#gap-geometry-dynamics"><span class="num">9.1</span> Geometry and dynamics are handled by different methods</a></li><li><a href="09-directions.html#gap-assimilation"><span class="num">9.2</span> Data assimilation for encoder-free latent models</a></li><li><a href="09-directions.html#gap-certification"><span class="num">9.3</span> Error estimates for learned surrogates</a></li><li><a href="09-directions.html#gap-chaos"><span class="num">9.4</span> Uncertainty and chaotic flows</a></li><li><a href="09-directions.html#gap-structure"><span class="num">9.5</span> Structure-preserving latent dynamics</a></li><li><a href="09-directions.html#gap-benchmark"><span class="num">9.6</span> Fair comparisons across the two traditions</a></li></ul></li>
+<li><a href="references.html">References</a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <main class="docs-main">
+      
+<section class="chapter" id="physics-informed">
+<p class="eyebrow">Chapter 6</p>
+<h2>6. Physics-informed learning</h2>
+<p>Physics-informed methods put the governing equations into the loss function. They can be combined with most architectures above.</p>
+
+<article class="method" id="pinns">
+<h3><span class="num">6.1</span> Physics-informed neural networks (PINNs)</h3>
+<p>Represent the solution by a network \(u_\theta(x,t)\) and minimize the PDE residual at collocation points together with boundary, initial and data misfits:
+\[ \mathcal{L}(\theta) = \frac{1}{N_r}\sum_{r}\big|\partial_t u_\theta + \mathcal{N}(u_\theta)\big|^2(x_r,t_r) + \lambda_b\,\mathcal{L}_{\mathrm{BC/IC}} + \lambda_d\,\mathcal{L}_{\mathrm{data}}. \]
+Derivatives are computed by automatic differentiation, so no mesh is needed. A plain PINN solves one problem instance; training <em>is</em> the solve, and for forward problems it is usually far slower than a classical solver at the same accuracy. Optimization is delicate (imbalanced loss terms, spectral bias, violated causality in time), and high-Reynolds-number flows are hard. The strongest use case is inverse problems and data assimilation, where sparse measurements and the equations are combined, for example to infer pressure or viscosity from velocity data.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>M. Raissi, P. Perdikaris, G. E. Karniadakis, <a href="https://arxiv.org/abs/1711.10561" target="_blank" rel="noreferrer"><cite>Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations</cite></a>, J. Comput. Phys., 2019.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>PINN for 1D Burgers (forward) and for identifying the viscosity from sparse data (inverse).</p></div>
+</article>
+
+<article class="method" id="pideeponet">
+<h3><span class="num">6.2</span> Physics-informed operator learning</h3>
+<p>Adding the residual loss to an operator network turns it into a parametric solver: physics-informed DeepONets can be trained with few or no solution data, using the PDE residual at collocation points for many input functions. The same idea applied to FNO gives physics-informed neural operators. The residual term acts as a regularizer that reduces the amount of simulation data needed, at the price of the optimization difficulties of PINNs.</p>
+<div class="refs"><span class="label">Papers</span><ul><li>S. Wang, H. Wang, P. Perdikaris, <a href="https://arxiv.org/abs/2103.10974" target="_blank" rel="noreferrer"><cite>Learning the solution operator of parametric partial differential equations with physics-informed DeepONets</cite></a>, Science Advances, 2021.</li></ul></div>
+<div class="demo"><span class="label">Demo notebook &middot; planned</span><p>Physics-informed DeepONet for a 1D diffusion–reaction operator trained without solution data.</p></div>
+</article>
+
+</section>
+
+      <nav class="pager" aria-label="Chapters"><a class="prev" href="05-mesh-hybrid.html"><small>Previous</small>← 5. Mesh-based learned simulators and hybrid solvers</a><a class="next" href="07-generative.html"><small>Next</small>7. Generative models and foundation models →</a></nav>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="max-width:1180px">© 2026 Yerbol Palzhanov</div>
+  </footer>
+  <script src="./docs.js"></script>
+</body>
+</html>
